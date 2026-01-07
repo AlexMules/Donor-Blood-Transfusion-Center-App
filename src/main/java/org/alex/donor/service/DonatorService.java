@@ -21,6 +21,8 @@ public class DonatorService {
     private final DonatorRepository donatorRepo;
     private final PasswordEncoder passwordEncoder;
     private final AnalizaSangeRepository analizaRepo;
+    private final AlertaRepository alertaRepo;
+    private final AutentificareService autentificareService;
 
     @Transactional
     public void inregistrareDonator(Utilizator u, Adresa a, Donator d) {
@@ -72,5 +74,34 @@ public class DonatorService {
             case INELIGIBIL_TEMPORAR -> "Momentan nu poți dona (perioadă de recuperare/așteptarea rezultatului analizei).";
             case INELIGIBIL_PERMANENT -> "Din motive medicale, nu poți dona sânge!";
         };
+    }
+
+    public List<Alerta> getAlertePersonale() {
+        // 1. Obținem utilizatorul logat
+        Utilizator u = autentificareService.getUtilizatorLogat();
+        if (u == null) {
+            throw new RuntimeException("Nu sunteți autentificat!");
+        }
+
+        // 2. Găsim profilul de donator
+        Donator donator = donatorRepo.findByUtilizator(u)
+                .orElseThrow(() -> new RuntimeException("Profilul de donator nu a fost găsit!"));
+
+        // 3. VERIFICARE ELIGIBILITATE
+        // Dacă statusul nu este ELIGIBIL, returnăm o listă goală (donatorul nu vede alertele)
+        if (donator.getStatus() != StatusDonator.ELIGIBIL) {
+            return List.of();
+        }
+
+        // 4. Verificăm dacă are grupa de sânge stabilită
+        if (donator.getGrupaSanguina() == null || donator.getRh() == null) {
+            return List.of();
+        }
+
+        // 5. Returnăm alertele compatibile
+        return alertaRepo.findAllByGrupaSanguinaAndRhOrderByDataOraDesc(
+                donator.getGrupaSanguina(),
+                donator.getRh()
+        );
     }
 }
