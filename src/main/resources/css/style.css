@@ -112,3 +112,32 @@
     -fx-padding: 10 15;
     -fx-border-color: transparent;
 }
+
+/* Centrarea și mărirea textului în toate celulele tabelului */
+.custom-table .table-cell {
+    -fx-alignment: CENTER;           /* Centrează textul orizontal și vertical */
+    -fx-font-size: 16px;             /* Mărește textul (ajustează după preferință) */
+    -fx-text-fill: #333333;
+}
+
+/* Stil pentru antetul coloanelor (opțional, pentru consistență) */
+.custom-table .column-header .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+/* Micșorarea butoanelor de ștergere din tabel */
+.btn-delete-row {
+    -fx-background-color: #ffcc00;
+    -fx-text-fill: black;
+    -fx-background-radius: 15;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;             /* Text mai mic pentru buton */
+    -fx-padding: 5 15 5 15;          /* Padding redus pentru a fi mai mic */
+    -fx-cursor: hand;
+}
+
+.btn-delete-row:hover {
+    -fx-background-color: #ffd633;
+}
