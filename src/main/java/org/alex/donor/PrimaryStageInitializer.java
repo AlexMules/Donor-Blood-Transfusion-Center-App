@@ -35,7 +35,7 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
 
             Parent parent = fxmlLoader.load();
             Stage stage = event.getStage();
-            stage.setScene(new Scene(parent, 800, 600));
+            stage.setScene(new Scene(parent, 800, 500));
             stage.setTitle("Sistem Gestiune Donare Sânge");
             stage.show();
         } catch (IOException e) {

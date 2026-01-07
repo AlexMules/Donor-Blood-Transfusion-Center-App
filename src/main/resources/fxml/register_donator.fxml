@@ -1,14 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.RegisterDonator"
-            prefHeight="400.0" prefWidth="600.0">
+<ScrollPane fitToWidth="true" styleClass="register-scroll-pane" stylesheets="@../css/style.css, @../css/register.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alex.donor.controller.RegisterDonatorController">
+    <content>
+        <VBox fx:id="mainContainer" alignment="TOP_CENTER" spacing="25.0" styleClass="register-root">
+            <children>
+                <Label text="Înregistrare Donator" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
 
-</AnchorPane>
+                <HBox alignment="CENTER" spacing="50.0">
+                    <children>
+                        <VBox spacing="12.0" prefWidth="420.0" maxWidth="450.0">
+                            <children>
+                                <Label text="Email:" textFill="WHITE" />
+                                <TextField fx:id="emailField" styleClass="input-field" promptText="ion@email.com" />
+
+                                <Label text="Parolă:" textFill="WHITE" />
+                                <PasswordField fx:id="passwordField" styleClass="input-field" />
+
+                                <Label text="Nr. Telefon:" textFill="WHITE" />
+                                <TextField fx:id="phoneField" styleClass="input-field" promptText="07xxxxxxxx" />
+
+                                <HBox spacing="10.0">
+                                    <VBox HBox.hgrow="ALWAYS">
+                                        <Label text="Nume:" textFill="WHITE" />
+                                        <TextField fx:id="numeField" styleClass="input-field" />
+                                    </VBox>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                        <Label text="Prenume:" textFill="WHITE" />
+                                        <TextField fx:id="prenumeField" styleClass="input-field" />
+                                    </VBox>
+                                </HBox>
+
+                                <Label text="CNP (13 cifre):" textFill="WHITE" />
+                                <TextField fx:id="cnpField" styleClass="input-field" />
+
+                                <Label text="Data Nașterii (AAAA-LL-ZZ):" textFill="WHITE" />
+                                <TextField fx:id="dataNasteriiField" styleClass="input-field" promptText="1990-01-01" />
+
+                                <HBox spacing="10.0">
+                                    <VBox HBox.hgrow="ALWAYS">
+                                        <Label text="Sex:" textFill="WHITE" />
+                                        <ComboBox fx:id="sexCombo" maxWidth="Infinity" styleClass="combo-box-custom" />
+                                    </VBox>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                        <Label text="Grupa Sanguină:" textFill="WHITE" />
+                                        <ComboBox fx:id="grupaCombo" maxWidth="Infinity" styleClass="combo-box-custom" />
+                                    </VBox>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                        <Label text="RH:" textFill="WHITE" />
+                                        <ComboBox fx:id="rhCombo" maxWidth="Infinity" styleClass="combo-box-custom" />
+                                    </VBox>
+                                </HBox>
+
+                                <HBox spacing="10.0">
+                                    <VBox HBox.hgrow="ALWAYS">
+                                        <Label text="Greutate (kg):" textFill="WHITE" />
+                                        <TextField fx:id="greutateField" styleClass="input-field" />
+                                    </VBox>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                        <Label text="Înălțime (m):" textFill="WHITE" />
+                                        <TextField fx:id="inaltimeField" styleClass="input-field" promptText="1.75" />
+                                    </VBox>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="12.0" prefWidth="420.0" maxWidth="450.0" alignment="TOP_LEFT">
+                            <children>
+                                <Label text="Date Domiciliu" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="20.0" />
+                                    </font>
+                                </Label>
+                                <Separator opacity="0.3" />
+
+                                <Label text="Județ:" textFill="WHITE" />
+                                <TextField fx:id="judetField" styleClass="input-field" />
+
+                                <Label text="Localitate:" textFill="WHITE" />
+                                <TextField fx:id="localitateField" styleClass="input-field" />
+
+                                <Label text="Stradă:" textFill="WHITE" />
+                                <TextField fx:id="stradaField" styleClass="input-field" />
+
+                                <Label text="Număr:" textFill="WHITE" />
+                                <TextField fx:id="numarField" styleClass="input-field" />
+
+                                <Label text="Cod Poștal (6 cifre):" textFill="WHITE" />
+                                <TextField fx:id="codPostalField" styleClass="input-field" />
+
+                                <Label fx:id="errorLabel" styleClass="error-label" visible="false" wrapText="true">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <Button fx:id="btnRegister" onAction="#handleRegister" prefHeight="50.0" prefWidth="250.0" text="Înregistrează-te" />
+
+                <HBox alignment="BOTTOM_LEFT">
+                    <children>
+                        <Button onAction="#handleBack" styleClass="btn-back" text="Înapoi" />
+                    </children>
+                    <padding>
+                        <Insets top="20.0" />
+                    </padding>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="20.0" />
+            </padding>
+        </VBox>
+    </content>
+</ScrollPane>

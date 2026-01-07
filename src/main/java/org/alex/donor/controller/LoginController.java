@@ -54,7 +54,7 @@ public class LoginController {
             navigateToDashboard(user.getRol());
 
         } catch (Exception e) {
-            showError("Date de logare incorecte sau eroare server.");
+            showError("Date de logare incorecte!");
         }
     }
 
@@ -86,9 +86,26 @@ public class LoginController {
             Parent root = loader.load();
 
             Stage stage = (Stage) emailField.getScene().getWindow();
-            stage.setScene(new Scene(root));
+
+            // Verificăm dacă mergem către Dashboard sau către pagina de Înregistrare
+            if (fxmlPath.contains("dashboard") || fxmlPath.contains("main") || fxmlPath.contains("register")) {
+                // Setează dimensiuni mai mari pentru ecrane complexe
+                stage.setScene(new Scene(root, 1000, 850));
+
+                // Setează limite minime pentru a preveni suprapunerea coloanelor
+                stage.setMinWidth(1000);
+                stage.setMinHeight(750);
+
+                stage.setResizable(true); // Permite utilizatorului să mărească fereastra
+            } else {
+                // Dimensiunea standard pentru Login
+                stage.setScene(new Scene(root, 800, 500));
+                stage.setResizable(false); // Login-ul ar trebui să rămână fix
+            }
+
             stage.setTitle(title);
-            stage.centerOnScreen();
+            stage.centerOnScreen(); // Recentrează fereastra după schimbarea dimensiunii
+
         } catch (IOException e) {
             showError("Eroare la încărcarea ferestrei următoare.");
             e.printStackTrace();
