@@ -3,9 +3,7 @@ package org.alex.donor;
 import lombok.extern.slf4j.Slf4j;
 import org.alex.donor.model.*;
 import org.alex.donor.model.enums.*;
-import org.alex.donor.repository.AnalizaSangeRepository;
-import org.alex.donor.repository.DonareRepository;
-import org.alex.donor.repository.UtilizatorRepository;
+import org.alex.donor.repository.*;
 import org.alex.donor.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,42 +24,41 @@ public class DonorApplication {
     }
 
     @Bean
-    CommandLineRunner testVizualizareBiolog(AutentificareService authService, BiologService biologService) {
+    @org.springframework.core.annotation.Order(6)
+    CommandLineRunner testFluxCompletResetareSiAutentificare(
+            UtilizatorService utilizatorService,
+            AutentificareService autentificareService) {
+
         return args -> {
-            System.out.println("\n========== TEST VIZUALIZARE ANALIZE (BIOLOG) ==========");
+            System.out.println("\n=== TEST COMPLET: RESETARE -> LOGOUT -> LOGIN -> LOGOUT ===");
 
+            // MODIFICĂ AICI: Folosește email-ul care există în baza ta de date
+            String email = "test.donator@gmail.com";
+            String parolaNoua = "SangeleSalveazaVieti2026!";
+
+            // 1. RESETARE
+            System.out.println("Step 1: Resetare parolă donator pentru " + email);
             try {
-                // 1. Logare Biolog
-                Utilizator biolog = authService.login("biolog.test@laborator.ro", "biolog123");
-                System.out.println("[OK] Biolog logat: " + biolog.getNume());
+                utilizatorService.resetareParolaDonator(email, parolaNoua);
 
-                // 2. Obținerea analizelor în așteptare
-                List<AnalizaSange> deLucru = biologService.getAnalizeInAsteptare();
+                // 2. LOGOUT
+                autentificareService.logout();
+                System.out.println("Step 2: Logout efectuat.");
 
-                if (deLucru.isEmpty()) {
-                    System.out.println("[-] Nu există analize în așteptare momentan.");
-                } else {
-                    System.out.println("[+] S-au găsit " + deLucru.size() + " analize de procesat:");
-                    System.out.println("------------------------------------------------------------");
-                    System.out.println(String.format("%-5s | %-20s | %-15s", "ID", "DATA DONARE", "DONATOR"));
-                    System.out.println("------------------------------------------------------------");
+                // 3. LOGIN
+                System.out.println("Step 3: Încercare login cu parola nouă...");
+                Utilizator u = autentificareService.login(email, parolaNoua);
+                System.out.println("   SUCCES! Logat ca: " + u.getNume() + " " + u.getPrenume());
 
-                    for (AnalizaSange a : deLucru) {
-                        // Accesăm data_donare din tabelul donare prin cheia străină (a.getDonare())
-                        System.out.println(String.format("%-5d | %-20s | %-15s",
-                                a.getId(),
-                                a.getDonare().getDataDonare(),
-                                a.getDonare().getDonator().getUtilizator().getNume()));
-                    }
-                }
+                // 4. LOGOUT FINAL
+                autentificareService.logout();
+                System.out.println("Step 4: Logout final efectuat.");
 
-                authService.logout();
-
-            } catch (Exception e) {
-                System.err.println("Eroare la testul de vizualizare biolog: " + e.getMessage());
+            } catch (RuntimeException e) {
+                System.err.println("   EROARE în timpul testului: " + e.getMessage());
             }
 
-            System.out.println("========== SFÂRȘIT TEST VIZUALIZARE BIOLOG ==========\n");
+            System.out.println("==========================================================\n");
         };
     }
 }

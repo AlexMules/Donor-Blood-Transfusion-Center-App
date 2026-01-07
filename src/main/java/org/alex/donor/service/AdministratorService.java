@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AdministratorService {
@@ -54,5 +56,17 @@ public class AdministratorService {
             biolog.setCodParafa(codParafa);
             biologRepo.save(biolog);
         }
+    }
+
+    public List<Utilizator> getPersonalMedical() {
+        return utilizatorRepo.findAllByRolIn(List.of(Rol.MEDIC, Rol.BIOLOG));
+    }
+
+    @Transactional
+    public void stergeUtilizator(Integer id) {
+        if (!utilizatorRepo.existsById(id)) {
+            throw new RuntimeException("Utilizatorul nu există!");
+        }
+        utilizatorRepo.deleteById(id);
     }
 }

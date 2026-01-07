@@ -17,4 +17,6 @@ public interface AnalizaSangeRepository extends JpaRepository<AnalizaSange, Inte
     List<AnalizaSange> findAllByDonator(@Param("donator") Donator donator);
 
     List<AnalizaSange> findAllByRezultat(RezultatAnaliza rezultat);
+
+    List<AnalizaSange> findAllByRezultatIn(List<RezultatAnaliza> rezultate);
 }

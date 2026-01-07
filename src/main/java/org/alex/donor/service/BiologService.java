@@ -33,6 +33,10 @@ public class BiologService {
         return analizaRepo.findAllByRezultat(RezultatAnaliza.IN_ASTEPTARE);
     }
 
+    public List<AnalizaSange> getAnalizeFinalizate() {
+        return analizaRepo.findAllByRezultatIn(List.of(RezultatAnaliza.ADMIS, RezultatAnaliza.RESPINS));
+    }
+
     @Transactional
     public void introducereRezultatAnaliza(Integer idAnaliza, Integer cantitate,
                                            GrupaSanguina grupa, Rh rh,
