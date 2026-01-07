@@ -1,17 +1,11 @@
 package org.alex.donor.service;
 
 import lombok.RequiredArgsConstructor;
-import org.alex.donor.model.AnalizaSange;
-import org.alex.donor.model.Donare;
-import org.alex.donor.model.Donator;
-import org.alex.donor.model.Programare;
+import org.alex.donor.model.*;
 import org.alex.donor.model.enums.RezultatAnaliza;
 import org.alex.donor.model.enums.StatusDonator;
 import org.alex.donor.model.enums.StatusProgramare;
-import org.alex.donor.repository.AnalizaSangeRepository;
-import org.alex.donor.repository.DonareRepository;
-import org.alex.donor.repository.DonatorRepository;
-import org.alex.donor.repository.ProgramareRepository;
+import org.alex.donor.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +23,7 @@ public class MedicService {
     private final DonareRepository donareRepo;
     private final AnalizaSangeRepository analizaRepo;
     private final DonatorRepository donatorRepo;
+    private final StocSangeRepository stocRepo;
 
     public List<Programare> getProgramariPentruZi(LocalDate data) {
         LocalDateTime startZi = data.atStartOfDay();
@@ -86,5 +81,9 @@ public class MedicService {
         // 1. Programarea devine RESPINSA
         p.setStatus(StatusProgramare.RESPINSA);
         programareRepo.save(p);
+    }
+
+    public List<StocSange> getStocSangeComplet() {
+        return stocRepo.findAll();
     }
 }

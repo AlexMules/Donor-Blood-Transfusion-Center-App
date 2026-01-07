@@ -26,22 +26,30 @@ public class DonorApplication {
     }
 
     @Bean
-    CommandLineRunner testValidareRespingere(MedicService medicService, ProgramareService programareService) {
+    CommandLineRunner testVizualizareStoc(MedicService medicService) {
         return args -> {
-            System.out.println("\n--- TEST FINAL MEDIC: VALIDARE VS RESPINGERE ---");
+            System.out.println("\n========== TEST MEDIC: VIZUALIZARE STOC SÂNGE ==========");
 
-            // Presupunem că avem două programări de test în DB
-            // 1. Test Validare
             try {
-                System.out.println("Testăm VALIDARE pentru programarea ID: 1");
-                medicService.valideazaDonare(1);
-            } catch (Exception e) { System.out.println(e.getMessage()); }
+                List<StocSange> stoc = medicService.getStocSangeComplet();
 
-            // 2. Test Respingere
-            try {
-                System.out.println("Testăm RESPINGERE pentru programarea ID: 2");
-                medicService.respingeDonare(2);
-            } catch (Exception e) { System.out.println(e.getMessage()); }
+                if (stoc.isEmpty()) {
+                    System.out.println("[-] Stocul este gol în baza de date.");
+                } else {
+                    System.out.println(String.format("%-15s | %-10s | %-15s", "GRUPĂ", "RH", "CANTITATE (ml)"));
+                    System.out.println("----------------------------------------------");
+                    for (StocSange s : stoc) {
+                        System.out.println(String.format("%-15s | %-10s | %-15s",
+                                s.getGrupaSanguina(),
+                                s.getRh(),
+                                s.getCantitateMl()));
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Eroare la citirea stocului: " + e.getMessage());
+            }
+
+            System.out.println("========================================================\n");
         };
     }
 }
