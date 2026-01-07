@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,42 +26,58 @@ public class DonorApplication {
     }
 
     @Bean
-    CommandLineRunner repairAndTestAdmin(
-            UtilizatorRepository userRepo,
+    CommandLineRunner testVizualizareProgramariMedic(
             AutentificareService authService,
-            AdministratorService adminService,
-            PasswordEncoder encoder) {
+            MedicService medicService,
+            ProgramareService programareService,
+            DonatorService donatorService) {
 
         return args -> {
-            System.out.println("\n========== REPARARE ȘI TEST ADMIN ==========");
-
-            // PAS 1: Resetăm parola direct din cod pentru a fi siguri de hash
-            userRepo.findByEmail("admin@donor.ro").ifPresent(u -> {
-                u.setParola(encoder.encode("admin123")); // Generăm hash-ul în mod programatic
-                userRepo.save(u);
-                System.out.println("[OK] Parola a fost rescrisă în DB cu un hash curat.");
-            });
+            System.out.println("\n========== TEST VIZUALIZARE PROGRAMĂRI (MEDIC) ==========");
 
             try {
-                // PAS 2: Încercăm login-ul acum
-                Utilizator admin = authService.login("admin@donor.ro", "admin123");
-                System.out.println("[SUCCES] Autentificare reușită pentru: " + admin.getNume());
+                // 1. NE ASIGURĂM CĂ AVEM O PROGRAMARE PENTRU AZI (pentru test)
+                Utilizator uDonator = authService.login("test.donator@gmail.com", "parola123");
+                Donator donator = donatorService.getDonatorByUtilizator(uDonator);
 
-                // PAS 3: Testăm adăugarea unui Medic (cerința ta principală)
-                try {
-                    adminService.creeazaContPersonalMedical(
-                            "medic.test@spital.ro", "medic123", "0744111222",
-                            "Ionescu", "Matei", "PARAFA-777", Rol.MEDIC
-                    );
-                    System.out.println("[OK] Medic adăugat cu succes.");
-                } catch (Exception e) {
-                    System.out.println("[INFO] Medicul există deja.");
+                Programare pAzi = new Programare();
+                pAzi.setDonator(donator);
+                // Programăm pentru ora actuală (care este în interiorul zilei de azi)
+                pAzi.setDataOraProgramare(LocalDateTime.now());
+                pAzi.setStatus(StatusProgramare.CONFIRMATA);
+                programareService.creeazaProgramare(pAzi);
+
+                System.out.println("[INFO] S-a creat o programare de test pentru astăzi.");
+                authService.logout();
+
+                // 2. LOGARE MEDIC
+                Utilizator medic = authService.login("medic.test@spital.ro", "medic123");
+                System.out.println("[OK] Medic logat: " + medic.getNume());
+
+                // 3. VIZUALIZARE PROGRAMĂRI PENTRU DATA DE AZI
+                LocalDate dataCautata = LocalDate.now();
+                List<Programare> rezultate = medicService.getProgramariPentruZi(dataCautata);
+
+                System.out.println(">> Rezultate pentru data: " + dataCautata);
+                if (rezultate.isEmpty()) {
+                    System.out.println("[-] Nu s-au găsit programări confirmate pentru această zi.");
+                } else {
+                    System.out.println("[+] S-au găsit " + rezultate.size() + " programări:");
+                    for (Programare p : rezultate) {
+                        System.out.println("    - Ora: " + p.getDataOraProgramare().toLocalTime() +
+                                " | Donator: " + p.getDonator().getUtilizator().getNume() +
+                                " " + p.getDonator().getUtilizator().getPrenume() +
+                                " | Telefon: " + p.getDonator().getUtilizator().getNrTelefon());
+                    }
                 }
 
+                authService.logout();
+
             } catch (Exception e) {
-                System.err.println("[EROARE] Login-ul a eșuat din nou: " + e.getMessage());
+                System.err.println("[EROARE TEST]: " + e.getMessage());
             }
-            System.out.println("============================================\n");
+
+            System.out.println("========== SFÂRȘIT TEST VIZUALIZARE ==========\n");
         };
     }
 }

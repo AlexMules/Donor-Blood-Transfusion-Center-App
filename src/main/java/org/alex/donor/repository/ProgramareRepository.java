@@ -4,9 +4,14 @@ import org.alex.donor.model.Donator;
 import org.alex.donor.model.Programare;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public interface ProgramareRepository extends JpaRepository<Programare, Integer> {
+
     List<Programare> findAllByDonatorOrderByDataOraProgramareDesc(Donator donator);
+
+    List<Programare> findAllByDataOraProgramareBetween(LocalDateTime start, LocalDateTime end);
 }
