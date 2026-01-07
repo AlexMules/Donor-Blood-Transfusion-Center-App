@@ -1,0 +1,47 @@
+/* Fundalul principal cu gradient vertical conform Figma */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #a10000, #4a0000);
+}
+
+/* Containerul alb ("pastila") care conține iconița și câmpul de text */
+.input-container {
+    -fx-background-color: white;
+    -fx-background-radius: 30; /* Rotunjire maximă pentru aspect de capsulă */
+    -fx-padding: 2 15 2 15;   /* Spațiu interior pentru a nu lipi elementele de margini */
+    -fx-alignment: center-left;
+    -fx-max-width: 320;       /* Lățime optimă pentru formular */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+/* Stil pentru TextField și PasswordField din interiorul capsulei */
+.transparent-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333; /* Text închis la culoare pe fundal alb */
+    -fx-prompt-text-fill: #888888; /* Culoarea textului sugestie (Email/Parolă) */
+}
+
+/* Stil general pentru butoane (Continuă / Înregistrează-te) */
+.button {
+    -fx-background-radius: 30;
+    -fx-background-color: white;
+    -fx-text-fill: black; /* Text negru conform ultimei tale cerințe */
+    -fx-font-weight: bold;
+    -fx-font-size: 18px; /* Dimensiune mărită */
+    -fx-padding: 10 30 10 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 3);
+}
+
+/* Efect vizual la trecerea mouse-ului peste butoane */
+.button:hover {
+    -fx-background-color: #e6e6e6;
+}
+
+/* Stil pentru textele de tip Label de pe fundalul roșu */
+.label {
+    -fx-font-smoothing-type: lcd;
+}

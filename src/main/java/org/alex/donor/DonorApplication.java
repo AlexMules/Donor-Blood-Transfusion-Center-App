@@ -20,6 +20,6 @@ import java.util.List;
 public class DonorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DonorApplication.class, args);
+        javafx.application.Application.launch(JavaFxApplication.class, args);
     }
 }
