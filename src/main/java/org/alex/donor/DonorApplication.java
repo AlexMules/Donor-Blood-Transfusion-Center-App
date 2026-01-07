@@ -26,30 +26,42 @@ public class DonorApplication {
     }
 
     @Bean
-    CommandLineRunner testVizualizareStoc(MedicService medicService) {
+    CommandLineRunner testVizualizareBiolog(AutentificareService authService, BiologService biologService) {
         return args -> {
-            System.out.println("\n========== TEST MEDIC: VIZUALIZARE STOC SÂNGE ==========");
+            System.out.println("\n========== TEST VIZUALIZARE ANALIZE (BIOLOG) ==========");
 
             try {
-                List<StocSange> stoc = medicService.getStocSangeComplet();
+                // 1. Logare Biolog
+                Utilizator biolog = authService.login("biolog.test@laborator.ro", "biolog123");
+                System.out.println("[OK] Biolog logat: " + biolog.getNume());
 
-                if (stoc.isEmpty()) {
-                    System.out.println("[-] Stocul este gol în baza de date.");
+                // 2. Obținerea analizelor în așteptare
+                List<AnalizaSange> deLucru = biologService.getAnalizeInAsteptare();
+
+                if (deLucru.isEmpty()) {
+                    System.out.println("[-] Nu există analize în așteptare momentan.");
                 } else {
-                    System.out.println(String.format("%-15s | %-10s | %-15s", "GRUPĂ", "RH", "CANTITATE (ml)"));
-                    System.out.println("----------------------------------------------");
-                    for (StocSange s : stoc) {
-                        System.out.println(String.format("%-15s | %-10s | %-15s",
-                                s.getGrupaSanguina(),
-                                s.getRh(),
-                                s.getCantitateMl()));
+                    System.out.println("[+] S-au găsit " + deLucru.size() + " analize de procesat:");
+                    System.out.println("------------------------------------------------------------");
+                    System.out.println(String.format("%-5s | %-20s | %-15s", "ID", "DATA DONARE", "DONATOR"));
+                    System.out.println("------------------------------------------------------------");
+
+                    for (AnalizaSange a : deLucru) {
+                        // Accesăm data_donare din tabelul donare prin cheia străină (a.getDonare())
+                        System.out.println(String.format("%-5d | %-20s | %-15s",
+                                a.getId(),
+                                a.getDonare().getDataDonare(),
+                                a.getDonare().getDonator().getUtilizator().getNume()));
                     }
                 }
+
+                authService.logout();
+
             } catch (Exception e) {
-                System.err.println("Eroare la citirea stocului: " + e.getMessage());
+                System.err.println("Eroare la testul de vizualizare biolog: " + e.getMessage());
             }
 
-            System.out.println("========================================================\n");
+            System.out.println("========== SFÂRȘIT TEST VIZUALIZARE BIOLOG ==========\n");
         };
     }
 }

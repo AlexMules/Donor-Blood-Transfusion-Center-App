@@ -2,6 +2,7 @@ package org.alex.donor.repository;
 
 import org.alex.donor.model.AnalizaSange;
 import org.alex.donor.model.Donator;
+import org.alex.donor.model.enums.RezultatAnaliza;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +15,6 @@ public interface AnalizaSangeRepository extends JpaRepository<AnalizaSange, Inte
 
     @Query("SELECT a FROM AnalizaSange a WHERE a.donare.donator = :donator ORDER BY a.donare.dataDonare DESC")
     List<AnalizaSange> findAllByDonator(@Param("donator") Donator donator);
+
+    List<AnalizaSange> findAllByRezultat(RezultatAnaliza rezultat);
 }
