@@ -34,7 +34,8 @@ public class AdminController {
 
     @FXML
     public void handleViewPersonalData() {
-        loadScene("/fxml/admin_edit_profile.fxml", "Modificare Date Personale");
+        // ACTUALIZARE: Schimbăm calea către noul fișier FXML de date personale
+        loadScene("/fxml/personal_data.fxml", "Vizualizare Date Personale");
     }
 
     @FXML
@@ -55,6 +56,7 @@ public class AdminController {
                 stage.setScene(new Scene(root, 800, 500));
                 stage.setResizable(false);
             } else {
+                // Dimensiunea de 1000x800 asigură spațiu suficient pentru datele personale
                 stage.setScene(new Scene(root, 1000, 800));
                 stage.setResizable(true);
             }

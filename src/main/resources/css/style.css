@@ -141,3 +141,30 @@
 .btn-delete-row:hover {
     -fx-background-color: #ffd633;
 }
+
+/* CLASĂ NOUĂ: Doar pentru fereastra de Date Personale */
+.info-display-field {
+    -fx-background-color: #ffffff;    /* Alb pur */
+    -fx-text-fill: #000000;          /* Negru pur */
+    -fx-opacity: 1.0;                /* Eliminăm transparența pentru a păstra albul strălucitor */
+
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-padding: 10 20;
+
+    /* Centrare și mărime text */
+    -fx-alignment: CENTER;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+
+    /* Opțional: o bordură fină dacă vrei să pară mai conturate pe fundalul roșu */
+    -fx-border-color: transparent;
+}
+
+/* Stil pentru etichetele de deasupra (Nume, Prenume etc.) */
+.info-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 5 10;           /* Puțin spațiu sub etichetă */
+}

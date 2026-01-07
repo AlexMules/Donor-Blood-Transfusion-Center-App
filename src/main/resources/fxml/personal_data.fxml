@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="950.0" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alex.donor.controller.PersonalDataController">
+    <children>
+        <Label text="Date Personale" textFill="WHITE">
+            <font><Font name="System Bold" size="40.0" /></font>
+            <VBox.margin><Insets top="60.0" bottom="40.0" /></VBox.margin>
+        </Label>
+
+        <VBox alignment="CENTER" maxWidth="500.0" spacing="30.0">
+            <children>
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Nume:" styleClass="info-label" />
+                        <TextField fx:id="numeField" editable="false" prefHeight="55.0" styleClass="info-display-field" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Prenume:" styleClass="info-label" />
+                        <TextField fx:id="prenumeField" editable="false" prefHeight="55.0" styleClass="info-display-field" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Rol:" styleClass="info-label" />
+                        <TextField fx:id="rolField" editable="false" prefHeight="55.0" styleClass="info-display-field" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Email:" styleClass="info-label" />
+                        <TextField fx:id="emailField" editable="false" prefHeight="55.0" styleClass="info-display-field" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+
+        <HBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
+            <children>
+                <Button fx:id="btnBack" onAction="#handleBack" prefHeight="45.0" prefWidth="120.0" styleClass="btn-back" text="Înapoi" />
+            </children>
+            <padding><Insets bottom="40.0" left="50.0" /></padding>
+        </HBox>
+    </children>
+</VBox>
