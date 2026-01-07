@@ -20,7 +20,7 @@ public class AnalizaSange {
     @JoinColumn(name = "id_donare", nullable = false)
     private Donare donare;
 
-    private LocalDateTime data_introducere_rezultat;
+    private LocalDateTime dataIntroducereRezultat;
     private Integer cantitateMl;
 
     @Enumerated(EnumType.STRING)

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class DonatorService {
     private final AdresaRepository adresaRepo;
     private final DonatorRepository donatorRepo;
     private final PasswordEncoder passwordEncoder;
+    private final AnalizaSangeRepository analizaRepo;
 
     @Transactional
     public void inregistrareDonator(Utilizator u, Adresa a, Donator d) {
@@ -43,7 +45,7 @@ public class DonatorService {
         d.setUtilizator(utilizatorSalvat);
         d.setAdresa(adresaSalvata);
         d.setStatus(StatusDonator.ELIGIBIL);
-        d.setVarsta(Period.between(d.getData_nasterii().toLocalDate(), LocalDate.now()).getYears());
+        d.setVarsta(Period.between(d.getDataNasterii().toLocalDate(), LocalDate.now()).getYears());
 
         // salvare finala
         donatorRepo.save(d);
@@ -52,5 +54,23 @@ public class DonatorService {
     public Donator getDonatorByUtilizator(Utilizator u) {
         return donatorRepo.findByUtilizator(u)
                 .orElseThrow(() -> new RuntimeException("Profilul de donator nu a fost găsit!"));
+    }
+
+    public List<AnalizaSange> getIstoricAnalize(Donator donator) {
+        return analizaRepo.findAllByDonator(donator);
+    }
+
+    public StatusDonator getStatusDonator(Donator donator) {
+        return donator.getStatus();
+    }
+
+    public String getMesajStatus(Donator donator) {
+        StatusDonator status = donator.getStatus();
+
+        return switch (status) {
+            case ELIGIBIL -> "Ești eligibil pentru a dona! Te poți programa oricând.";
+            case INELIGIBIL_TEMPORAR -> "Momentan nu poți dona (perioadă de recuperare/așteptarea rezultatului analizei).";
+            case INELIGIBIL_PERMANENT -> "Din motive medicale, nu poți dona sânge!";
+        };
     }
 }
