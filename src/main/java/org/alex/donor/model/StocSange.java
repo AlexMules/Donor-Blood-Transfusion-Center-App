@@ -14,10 +14,10 @@ public class StocSange {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
-    private GrupaSanguina grupa_sanguina;
+    private GrupaSanguina grupaSanguina;
 
     @Enumerated(EnumType.STRING)
     private Rh rh;
 
-    private Integer cantitate_ml = 0;
+    private Integer cantitateMl = 0;
 }

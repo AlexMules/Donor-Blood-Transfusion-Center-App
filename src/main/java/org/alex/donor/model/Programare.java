@@ -18,7 +18,8 @@ public class Programare {
     @JoinColumn(name = "id_donator", nullable = false)
     private Donator donator;
 
-    private LocalDateTime data_ora_programare;
+    // Modifică aici:
+    private LocalDateTime dataOraProgramare;
 
     @Enumerated(EnumType.STRING)
     private StatusProgramare status = StatusProgramare.CONFIRMATA;

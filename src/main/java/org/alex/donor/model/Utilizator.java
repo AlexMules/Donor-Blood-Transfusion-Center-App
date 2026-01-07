@@ -22,7 +22,7 @@ public class Utilizator {
     @Column(nullable = false)
     private String parola;
 
-    private String nr_telefon;
+    private String nrTelefon;
     private String nume;
     private String prenume;
 

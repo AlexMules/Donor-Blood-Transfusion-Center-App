@@ -48,4 +48,9 @@ public class DonatorService {
         // salvare finala
         donatorRepo.save(d);
     }
+
+    public Donator getDonatorByUtilizator(Utilizator u) {
+        return donatorRepo.findByUtilizator(u)
+                .orElseThrow(() -> new RuntimeException("Profilul de donator nu a fost găsit!"));
+    }
 }

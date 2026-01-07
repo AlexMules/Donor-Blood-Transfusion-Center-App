@@ -17,5 +17,5 @@ public class Donare {
     @JoinColumn(name = "id_donator", nullable = false)
     private Donator donator;
 
-    private LocalDateTime data_donare = LocalDateTime.now();
+    private LocalDateTime dataDonare = LocalDateTime.now();
 }

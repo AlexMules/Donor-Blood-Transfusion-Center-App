@@ -15,5 +15,5 @@ public class Biolog {
     @JoinColumn(name = "id_utilizator", nullable = false)
     private Utilizator utilizator;
 
-    private String cod_parafa;
+    private String codParafa;
 }

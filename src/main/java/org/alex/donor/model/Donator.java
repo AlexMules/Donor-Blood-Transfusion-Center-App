@@ -28,7 +28,7 @@ public class Donator {
     @Column(unique = true, nullable = false)
     private String cnp;
 
-    private LocalDateTime data_nasterii;
+    private LocalDateTime dataNasterii;
     private Integer varsta;
 
     @Enumerated(EnumType.STRING)
@@ -38,7 +38,7 @@ public class Donator {
     private Float inaltime;
 
     @Enumerated(EnumType.STRING)
-    private GrupaSanguina grupa_sanguina;
+    private GrupaSanguina grupaSanguina;
 
     @Enumerated(EnumType.STRING)
     private Rh rh;

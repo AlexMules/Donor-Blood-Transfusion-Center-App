@@ -21,10 +21,10 @@ public class AnalizaSange {
     private Donare donare;
 
     private LocalDateTime data_introducere_rezultat;
-    private Integer cantitate_ml;
+    private Integer cantitateMl;
 
     @Enumerated(EnumType.STRING)
-    private GrupaSanguina grupa_sanguina;
+    private GrupaSanguina grupaSanguina;
 
     @Enumerated(EnumType.STRING)
     private Rh rh;
