@@ -26,58 +26,22 @@ public class DonorApplication {
     }
 
     @Bean
-    CommandLineRunner testVizualizareProgramariMedic(
-            AutentificareService authService,
-            MedicService medicService,
-            ProgramareService programareService,
-            DonatorService donatorService) {
-
+    CommandLineRunner testValidareRespingere(MedicService medicService, ProgramareService programareService) {
         return args -> {
-            System.out.println("\n========== TEST VIZUALIZARE PROGRAMĂRI (MEDIC) ==========");
+            System.out.println("\n--- TEST FINAL MEDIC: VALIDARE VS RESPINGERE ---");
 
+            // Presupunem că avem două programări de test în DB
+            // 1. Test Validare
             try {
-                // 1. NE ASIGURĂM CĂ AVEM O PROGRAMARE PENTRU AZI (pentru test)
-                Utilizator uDonator = authService.login("test.donator@gmail.com", "parola123");
-                Donator donator = donatorService.getDonatorByUtilizator(uDonator);
+                System.out.println("Testăm VALIDARE pentru programarea ID: 1");
+                medicService.valideazaDonare(1);
+            } catch (Exception e) { System.out.println(e.getMessage()); }
 
-                Programare pAzi = new Programare();
-                pAzi.setDonator(donator);
-                // Programăm pentru ora actuală (care este în interiorul zilei de azi)
-                pAzi.setDataOraProgramare(LocalDateTime.now());
-                pAzi.setStatus(StatusProgramare.CONFIRMATA);
-                programareService.creeazaProgramare(pAzi);
-
-                System.out.println("[INFO] S-a creat o programare de test pentru astăzi.");
-                authService.logout();
-
-                // 2. LOGARE MEDIC
-                Utilizator medic = authService.login("medic.test@spital.ro", "medic123");
-                System.out.println("[OK] Medic logat: " + medic.getNume());
-
-                // 3. VIZUALIZARE PROGRAMĂRI PENTRU DATA DE AZI
-                LocalDate dataCautata = LocalDate.now();
-                List<Programare> rezultate = medicService.getProgramariPentruZi(dataCautata);
-
-                System.out.println(">> Rezultate pentru data: " + dataCautata);
-                if (rezultate.isEmpty()) {
-                    System.out.println("[-] Nu s-au găsit programări confirmate pentru această zi.");
-                } else {
-                    System.out.println("[+] S-au găsit " + rezultate.size() + " programări:");
-                    for (Programare p : rezultate) {
-                        System.out.println("    - Ora: " + p.getDataOraProgramare().toLocalTime() +
-                                " | Donator: " + p.getDonator().getUtilizator().getNume() +
-                                " " + p.getDonator().getUtilizator().getPrenume() +
-                                " | Telefon: " + p.getDonator().getUtilizator().getNrTelefon());
-                    }
-                }
-
-                authService.logout();
-
-            } catch (Exception e) {
-                System.err.println("[EROARE TEST]: " + e.getMessage());
-            }
-
-            System.out.println("========== SFÂRȘIT TEST VIZUALIZARE ==========\n");
+            // 2. Test Respingere
+            try {
+                System.out.println("Testăm RESPINGERE pentru programarea ID: 2");
+                medicService.respingeDonare(2);
+            } catch (Exception e) { System.out.println(e.getMessage()); }
         };
     }
 }
