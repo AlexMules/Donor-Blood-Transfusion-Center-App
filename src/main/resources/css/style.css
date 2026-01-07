@@ -45,3 +45,18 @@
 .label {
     -fx-font-smoothing-type: lcd;
 }
+
+.admin-menu-button {
+    -fx-font-size: 18px;             /* Mărim textul */
+    -fx-font-weight: bold;
+    -fx-padding: 15 30 15 30;        /* Mărim spațiul interior (mai înalte și mai late) */
+    -fx-background-radius: 30;       /* Rotunjire mai pronunțată pentru aspect modern */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); /* Umbră mai vizibilă */
+}
+
+/* Efect de mărire ușoară la trecerea mouse-ului */
+.admin-menu-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-scale-x: 1.05;               /* Se mărește ușor pe orizontală */
+    -fx-scale-y: 1.05;               /* Se mărește ușor pe verticală */
+}

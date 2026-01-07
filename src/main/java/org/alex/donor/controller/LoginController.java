@@ -82,32 +82,38 @@ public class LoginController {
     private void loadScene(String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            // Injectăm contextul Spring pentru ca @Autowired să funcționeze în noile controllere
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
 
             Stage stage = (Stage) emailField.getScene().getWindow();
 
-            // Verificăm dacă mergem către Dashboard sau către pagina de Înregistrare
-            if (fxmlPath.contains("dashboard") || fxmlPath.contains("main") || fxmlPath.contains("register")) {
-                // Setează dimensiuni mai mari pentru ecrane complexe
-                stage.setScene(new Scene(root, 1000, 850));
+            // Verificăm dacă mergem către Dashboard, Admin sau Înregistrare
+            if (fxmlPath.contains("dashboard") || fxmlPath.contains("main") ||
+                    fxmlPath.contains("register") || fxmlPath.contains("admin")) {
 
-                // Setează limite minime pentru a preveni suprapunerea coloanelor
+                // Setează dimensiunea generoasă pentru meniuri și formulare complexe
+                stage.setScene(new Scene(root, 1000, 800));
+
+                // Setează limite minime pentru a preveni suprapunerea butoanelor mari
                 stage.setMinWidth(1000);
                 stage.setMinHeight(750);
 
-                stage.setResizable(true); // Permite utilizatorului să mărească fereastra
+                // Permitem redimensionarea pentru a se adapta la diverse monitoare
+                stage.setResizable(true);
             } else {
-                // Dimensiunea standard pentru Login
+                // Dacă ne întoarcem la Login (ex: prin Logout)
                 stage.setScene(new Scene(root, 800, 500));
-                stage.setResizable(false); // Login-ul ar trebui să rămână fix
+                stage.setResizable(false); // Login-ul rămâne fix
             }
 
             stage.setTitle(title);
-            stage.centerOnScreen(); // Recentrează fereastra după schimbarea dimensiunii
+
+            // FOARTE IMPORTANT: Recentrează fereastra după schimbarea dimensiunilor scenei
+            stage.centerOnScreen();
 
         } catch (IOException e) {
-            showError("Eroare la încărcarea ferestrei următoare.");
+            showError("Eroare la încărcarea ferestrei: " + title);
             e.printStackTrace();
         }
     }

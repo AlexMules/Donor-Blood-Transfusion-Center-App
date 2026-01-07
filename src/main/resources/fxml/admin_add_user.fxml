@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="950.0" spacing="15.0" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alex.donor.controller.AdminAddUserController">
+    <children>
+        <HBox alignment="CENTER" spacing="15.0">
+            <VBox.margin><Insets top="50.0" bottom="30.0"/></VBox.margin>
+            <children>
+                <Label text="Rol utilizator:" textFill="WHITE">
+                    <font><Font name="System Bold" size="24.0" /></font>
+                </Label>
+                <ComboBox fx:id="rolCombo" prefHeight="40.0" prefWidth="180.0" styleClass="combo-box-custom" />
+            </children>
+        </HBox>
+
+        <VBox alignment="CENTER" maxWidth="500.0" spacing="12.0">
+            <children>
+                <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                    <children>
+                        <Label text="Email:" textFill="WHITE"><font><Font size="18.0" /></font></Label>
+                        <TextField fx:id="emailField" prefHeight="45.0" prefWidth="320.0" styleClass="input-field" promptText="ion@email.com" />
+                    </children>
+                </HBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                    <children>
+                        <Label text="Parolă:" textFill="WHITE"><font><Font size="18.0" /></font></Label>
+                        <PasswordField fx:id="passwordField" prefHeight="45.0" prefWidth="320.0" styleClass="input-field" />
+                    </children>
+                </HBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                    <children>
+                        <Label text="Nr. telefon:" textFill="WHITE"><font><Font size="18.0" /></font></Label>
+                        <TextField fx:id="phoneField" prefHeight="45.0" prefWidth="320.0" styleClass="input-field" promptText="07xxxxxxxx" />
+                    </children>
+                </HBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                    <children>
+                        <Label text="Nume:" textFill="WHITE"><font><Font size="18.0" /></font></Label>
+                        <TextField fx:id="numeField" prefHeight="45.0" prefWidth="320.0" styleClass="input-field" />
+                    </children>
+                </HBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                    <children>
+                        <Label text="Prenume:" textFill="WHITE"><font><Font size="18.0" /></font></Label>
+                        <TextField fx:id="prenumeField" prefHeight="45.0" prefWidth="320.0" styleClass="input-field" />
+                    </children>
+                </HBox>
+
+                <HBox fx:id="codParafaContainer" alignment="CENTER_RIGHT" spacing="20.0">
+                    <children>
+                        <Label text="Cod parafă:" textFill="WHITE"><font><Font size="18.0" /></font></Label>
+                        <TextField fx:id="codParafaField" prefHeight="45.0" prefWidth="320.0" styleClass="input-field" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <Label fx:id="errorLabel" textFill="#ffcc00" visible="false" wrapText="true">
+            <font><Font name="System Bold" size="14.0" /></font>
+            <VBox.margin><Insets top="10.0"/></VBox.margin>
+        </Label>
+
+        <Button onAction="#handleSaveUser" prefHeight="55.0" prefWidth="280.0" styleClass="admin-menu-button" text="Adaugă utilizator">
+            <VBox.margin><Insets top="30.0"/></VBox.margin>
+        </Button>
+
+        <HBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
+            <children>
+                <Button fx:id="btnBack" onAction="#handleBack" prefHeight="45.0" prefWidth="120.0" styleClass="btn-back" text="Înapoi" />
+            </children>
+            <padding><Insets bottom="30.0" left="40.0"/></padding>
+        </HBox>
+    </children>
+</VBox>
