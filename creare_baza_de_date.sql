@@ -101,3 +101,12 @@ CREATE TABLE stoc_sange (
     rh ENUM('POZITIV', 'NEGATIV') NOT NULL,
     cantitate_ml INT NOT NULL DEFAULT 0
 );
+
+CREATE TABLE alerta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    grupa_sanguina ENUM('A', 'B', 'AB', 'ZERO') NOT NULL,
+    rh ENUM('POZITIV', 'NEGATIV') NOT NULL,
+    titlu_mesaj VARCHAR(255) NOT NULL,
+    continut_mesaj TEXT NOT NULL,
+    data_ora DATETIME DEFAULT CURRENT_TIMESTAMP
+);
