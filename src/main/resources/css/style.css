@@ -60,3 +60,55 @@
     -fx-scale-x: 1.05;               /* Se mărește ușor pe orizontală */
     -fx-scale-y: 1.05;               /* Se mărește ușor pe verticală */
 }
+
+/* Rotunjire ComboBox */
+.combo-box-custom {
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-color: white;
+    -fx-padding: 5 10 5 10;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+/* Stil pentru butoanele de meniu (Adaugă utilizator) */
+.admin-menu-button {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-background-radius: 30; /* Valoare mare pentru formă de capsulă */
+    -fx-border-radius: 30;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);
+}
+
+.admin-menu-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Stil pentru butonul Înapoi */
+.btn-back {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+.btn-back:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+/* Asigură-te că și câmpurile de text sunt rotunjite la fel */
+.input-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-background-color: white;
+    -fx-padding: 10 15;
+    -fx-border-color: transparent;
+}

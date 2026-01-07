@@ -7,13 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
-import org.alex.donor.model.Utilizator;
 import org.alex.donor.model.enums.Rol;
 import org.alex.donor.service.AdministratorService;
-import org.alex.donor.service.AutentificareService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -26,80 +23,85 @@ import java.util.ResourceBundle;
 public class AdminAddUserController implements Initializable {
 
     private final ApplicationContext springContext;
-    private final AdministratorService adminService; // Injectăm serviciul tău
+    private final AdministratorService adminService;
 
-    @FXML private ComboBox<String> rolCombo;
+    @FXML private ComboBox<Rol> rolCombo;
     @FXML private TextField emailField, phoneField, numeField, prenumeField, codParafaField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
     @FXML private Button btnBack;
-    @FXML private HBox codParafaContainer;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        rolCombo.setItems(FXCollections.observableArrayList("Medic", "Biolog"));
-        rolCombo.setValue("Medic");
-
-        rolCombo.valueProperty().addListener((obs, oldVal, newVal) -> {
-            codParafaContainer.setVisible(newVal.equals("Medic"));
-            if (newVal.equals("Biolog")) codParafaField.clear();
-        });
+        // Populăm ComboBox-ul cu rolurile de personal medical
+        rolCombo.setItems(FXCollections.observableArrayList(Rol.MEDIC, Rol.BIOLOG));
+        rolCombo.setValue(Rol.MEDIC);
     }
 
     @FXML
     public void handleSaveUser() {
         try {
-            validateFields(); // Verifică email, telefon, majuscule și câmpuri goale
+            // 1. Validăm datele introduse conform restricțiilor tale
+            validateFields();
 
-            // 1. Pregătim obiectul Utilizator
-            Utilizator u = new Utilizator();
-            u.setEmail(emailField.getText().trim());
-            u.setParola(passwordField.getText()); // Serviciul ar trebui să o cripteze
-            u.setNrTelefon(phoneField.getText().trim());
-            u.setNume(numeField.getText().trim());
-            u.setPrenume(prenumeField.getText().trim());
+            // 2. Extragem valorile
+            String email = emailField.getText().trim();
+            String parola = passwordField.getText();
+            String nrTelefon = phoneField.getText().trim();
+            String nume = numeField.getText().trim();
+            String prenume = prenumeField.getText().trim();
+            String codParafa = codParafaField.getText().trim();
+            Rol rolSelectat = rolCombo.getValue();
 
-            // Mapăm string-ul din combo la Enum-ul Rol
-            Rol rolSelesctat = rolCombo.getValue().equals("Medic") ? Rol.MEDIC : Rol.BIOLOG;
-            u.setRol(rolSelesctat);
+            // 3. Apelăm serviciul pentru salvarea în baza de date
+            // Această metodă salvează în 'utilizator' și apoi în 'medic' sau 'biolog'
+            adminService.creeazaContPersonalMedical(
+                    email, parola, nrTelefon, nume, prenume, codParafa, rolSelectat
+            );
 
-            // 2. Apelăm serviciul pentru salvare
-            // Notă: Dacă serviciul tău are o metodă specifică, adaptează aici
-            String codParafa = rolSelesctat == Rol.MEDIC ? codParafaField.getText().trim() : null;
-            adminService.creeazaContPersonalMedical(u, codParafa);
-
-            // 3. Afișăm mesaj de succes
+            // 4. Mesaj de succes
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succes");
             alert.setHeaderText(null);
-            alert.setContentText("Utilizatorul " + u.getNume() + " a fost adăugat cu succes!");
+            alert.setContentText("Utilizatorul a fost adăugat cu succes în baza de date!");
             alert.showAndWait();
 
-            // 4. Golim câmpurile pentru o nouă adăugare
+            // 5. Golește câmpurile și rămâne pe pagină
             clearFields();
 
+        } catch (RuntimeException e) {
+            // Prinde eroarea dacă email-ul există deja (aruncată de serviciu)
+            showError(e.getMessage());
         } catch (Exception e) {
             showError(e.getMessage());
         }
     }
 
     private void validateFields() throws Exception {
-        if (isAnyEmpty()) throw new Exception("Toate câmpurile sunt obligatorii!");
+        // Verificăm să nu fie câmpuri goale
+        if (emailField.getText().isEmpty() || passwordField.getText().isEmpty() ||
+                phoneField.getText().isEmpty() || numeField.getText().isEmpty() ||
+                prenumeField.getText().isEmpty() || codParafaField.getText().isEmpty()) {
+            throw new Exception("Toate câmpurile sunt obligatorii!");
+        }
 
-        // Restricție: email de forma ion@email.com
-        if (!emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"))
-            throw new Exception("Format email invalid (ex: ion@email.com)!");
+        // Email: format ceva@ceva.com
+        if (!emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            throw new Exception("Formatul email-ului este invalid (ex: ion@email.com)!");
+        }
 
-        // Restricție: nr telefon din 10 cifre
-        if (!phoneField.getText().matches("\\d{10}"))
-            throw new Exception("Numărul de telefon trebuie să aibă fix 10 cifre!");
+        // Nr telefon: fix 10 cifre
+        if (!phoneField.getText().matches("^\\d{10}$")) {
+            throw new Exception("Numărul de telefon trebuie să aibă exact 10 cifre!");
+        }
 
-        // Restricție: Nume și prenume să înceapă cu majusculă
-        if (!numeField.getText().matches("[A-Z][a-z]*") || !prenumeField.getText().matches("[A-Z][a-z]*"))
-            throw new Exception("Numele și prenumele trebuie să înceapă cu majusculă!");
-
-        if (rolCombo.getValue().equals("Medic") && codParafaField.getText().isEmpty())
-            throw new Exception("Codul de parafă este obligatoriu pentru medici!");
+        // Nume și Prenume: să înceapă cu majusculă
+        if (!numeField.getText().matches("^[A-Z][a-z]*$")) {
+            throw new Exception("Numele trebuie să înceapă cu majusculă!");
+        }
+        if (!prenumeField.getText().matches("^[A-Z][a-z]*$")) {
+            throw new Exception("Prenumele trebuie să înceapă cu majusculă!");
+        }
     }
 
     private void clearFields() {
@@ -118,7 +120,9 @@ public class AdminAddUserController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin_main.fxml"));
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
+
             Stage stage = (Stage) btnBack.getScene().getWindow();
+            // Folosim dimensiunea standard pentru admin stabilită anterior
             stage.setScene(new Scene(root, 1000, 800));
             stage.centerOnScreen();
         } catch (IOException e) {
@@ -129,10 +133,5 @@ public class AdminAddUserController implements Initializable {
     private void showError(String msg) {
         errorLabel.setText(msg);
         errorLabel.setVisible(true);
-    }
-
-    private boolean isAnyEmpty() {
-        return emailField.getText().isEmpty() || passwordField.getText().isEmpty() ||
-                numeField.getText().isEmpty() || prenumeField.getText().isEmpty();
     }
 }
