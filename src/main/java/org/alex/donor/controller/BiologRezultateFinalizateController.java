@@ -117,7 +117,20 @@ public class BiologRezultateFinalizateController implements Initializable {
     }
 
     private void handleVeziDetalii(AnalizaSange analiza) {
-        System.out.println("Vizualizare detalii pentru analiza ID: " + analiza.getId());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/biolog_detalii_analiza_vizualizare.fxml"));
+            loader.setControllerFactory(springContext::getBean);
+            Parent root = loader.load();
+
+            BiologVizualizareDetaliiController controller = loader.getController();
+            controller.initData(analiza); // Trimitem datele către noua fereastră
+
+            Stage stage = (Stage) tabelRezultate.getScene().getWindow();
+            stage.setScene(new Scene(root, 1000, 800));
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
