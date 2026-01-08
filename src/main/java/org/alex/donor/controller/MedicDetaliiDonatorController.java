@@ -49,12 +49,62 @@ public class MedicDetaliiDonatorController {
 
     @FXML
     public void handleValideaza() {
-        // TODO
+        if (programareCurenta == null) return;
+
+        try {
+            // Apelăm logica de business din serviciu
+            medicService.valideazaDonare(programareCurenta.getId());
+
+            // Afișăm confirmarea succesului
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succes");
+            alert.setHeaderText(null);
+            alert.setContentText("Donarea a fost validată. Programarea este finalizată, iar analizele au fost trimise către biolog.");
+            alert.showAndWait();
+
+            // Navigăm înapoi la lista de programări (păstrând data selectată)
+            handleBack();
+
+        } catch (Exception e) {
+            // Gestionăm eventualele erori (ex: programarea nu mai există)
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Eroare");
+            errorAlert.setHeaderText("Nu s-a putut valida donarea");
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.showAndWait();
+        }
     }
 
+    /**
+     * Fluxul de invalidare: Donatorul este declarat INAPT (respins).
+     * Se apelează medicService.respingeDonare care:
+     * 1. Marchează programarea ca RESPINSA.
+     */
     @FXML
     public void handleRespinge() {
-        // TODO
+        if (programareCurenta == null) return;
+
+        try {
+            // Apelăm logica de respingere din serviciu
+            medicService.respingeDonare(programareCurenta.getId());
+
+            // Afișăm confirmarea respingerii
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Donare Respinsă");
+            alert.setHeaderText(null);
+            alert.setContentText("Donatorul a fost declarat inapt pentru donare în această sesiune. Programarea a fost marcată ca respinsă.");
+            alert.showAndWait();
+
+            // Navigăm înapoi la lista de programări (păstrând data selectată)
+            handleBack();
+
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Eroare");
+            errorAlert.setHeaderText("Nu s-a putut respinge donarea");
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.showAndWait();
+        }
     }
 
     @FXML
