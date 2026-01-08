@@ -35,6 +35,8 @@
 
                 <Button onAction="#handleViewStock" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Vizualizare stoc de sânge" />
 
+                <Button onAction="#handleViewFinalizedResults" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Vizualizare rezultate analize" />
+
                 <Button onAction="#handleSendAlert" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Trimitere alertă" />
 
                 <Button onAction="#handleViewPersonalData" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Vizualizare date personale" />

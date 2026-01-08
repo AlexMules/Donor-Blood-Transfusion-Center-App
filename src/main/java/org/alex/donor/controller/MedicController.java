@@ -47,6 +47,12 @@ public class MedicController {
     }
 
     @FXML
+    public void handleViewFinalizedResults() {
+        // Reutilizăm pagina de rezultate finalizate creată pentru biolog
+        loadScene("/fxml/biolog_rezultate_finalizate.fxml", "Rezultate Analize Finalizate");
+    }
+
+    @FXML
     public void handleLogout() {
         // Realizează logout-ul prin serviciu conform cerinței
         autentificareService.logout();
