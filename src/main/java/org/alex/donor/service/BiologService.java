@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +32,11 @@ public class BiologService {
      * Returnează analizele cu status IN_ASTEPTARE.
      */
     public List<AnalizaSange> getAnalizeInAsteptare() {
-        return analizaRepo.findAllByRezultat(RezultatAnaliza.IN_ASTEPTARE);
+        return analizaRepo.findAllByRezultat(RezultatAnaliza.IN_ASTEPTARE)
+                .stream()
+                // Sortăm crescător după data donării din obiectul Donare
+                .sorted(Comparator.comparing(a -> a.getDonare().getDataDonare()))
+                .collect(Collectors.toList());
     }
 
     public List<AnalizaSange> getAnalizeFinalizate() {

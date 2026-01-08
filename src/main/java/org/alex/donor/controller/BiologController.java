@@ -24,7 +24,7 @@ public class BiologController {
 
     @FXML
     public void handleIntroducereRezultate() {
-        loadScene("/fxml/biolog_introducere_rezultate.fxml", "Introducere Rezultate Analize");
+        loadScene("/fxml/biolog_analize_asteptare.fxml", "Vizualizare Analize In Asteptare");
     }
 
     @FXML
