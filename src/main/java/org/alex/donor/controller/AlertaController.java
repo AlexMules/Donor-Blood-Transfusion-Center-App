@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import org.alex.donor.model.Alerta;
+import org.alex.donor.model.enums.StatusDonator;
+import org.alex.donor.service.AutentificareService;
 import org.alex.donor.service.DonatorService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,7 @@ import java.util.ResourceBundle;
 public class AlertaController implements Initializable {
 
     private final DonatorService donatorService;
+    private final AutentificareService autentificareService;
     private final ApplicationContext springContext;
 
     @FXML private ListView<Alerta> alertaListView;
@@ -37,10 +40,35 @@ public class AlertaController implements Initializable {
         configurareCeluleCard();
         alertaListView.setSelectionModel(new NoSelectionModel<>());
 
-        try {
-            alertaListView.setItems(FXCollections.observableArrayList(donatorService.getAlertePersonale()));
-        } catch (Exception e) {
-            e.printStackTrace();
+        // Obținem datele donatorului pentru a verifica statusul
+        var utilizator = autentificareService.getUtilizatorLogat();
+        var donator = donatorService.getDonatorByUtilizator(utilizator);
+        var status = donatorService.getStatusDonator(donator);
+
+        if (status != StatusDonator.ELIGIBIL) {
+            // Formatăm statusul (ex: INELIGIBIL PERMANENT)
+            String statusFormatat = status.toString().replace("_", " ");
+
+            // Creăm eticheta Placeholder cu font mărit
+            Label placeholder = new Label("Momentan nu poți vizualiza alertele deoarece statusul tău actual este:\n\n" + statusFormatat);
+
+            // Stil actualizat: font de 26px, scris îngroșat și aliniere centrală
+            placeholder.setStyle("-fx-text-fill: white; " +
+                    "-fx-font-size: 26px; " +
+                    "-fx-font-weight: bold; " +
+                    "-fx-text-alignment: center;");
+
+            placeholder.setWrapText(true);
+            placeholder.setMaxWidth(700); // Lățime adaptată pentru fontul mai mare
+
+            alertaListView.setPlaceholder(placeholder);
+        } else {
+            // Dacă este ELIGIBIL, încărcăm alertele în mod normal
+            try {
+                alertaListView.setItems(FXCollections.observableArrayList(donatorService.getAlertePersonale()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

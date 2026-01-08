@@ -69,7 +69,11 @@ public class ProgramareController implements Initializable {
     private void actualizeazaStareInterfata() {
         // 1. Verificăm Eligibilitatea generală (Donatorul trebuie să fie ELIGIBIL)
         if (donatorLogat.getStatus() != StatusDonator.ELIGIBIL) {
-            dezactiveazaPanouProgramare("Nu te poți programa deoarece statusul tău actual este: " + donatorLogat.getStatus());
+            // Transformăm Enum-ul în String și înlocuim "_" cu spațiu pentru utilizator
+            String statusFormatat = donatorLogat.getStatus().toString().replace("_", " ");
+
+            // Trimitem mesajul curățat către metoda de dezactivare
+            dezactiveazaPanouProgramare("Nu te poți programa deoarece statusul tău actual este: " + statusFormatat);
             return;
         }
 
