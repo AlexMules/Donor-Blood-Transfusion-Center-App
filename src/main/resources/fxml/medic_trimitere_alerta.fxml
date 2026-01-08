@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="950.0" spacing="20.0" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alex.donor.controller.MedicAlertaController">
+    <children>
+        <HBox alignment="TOP_LEFT">
+            <VBox.margin><Insets left="40.0" top="40.0" /></VBox.margin>
+            <children>
+                <Label text="Alertă - urgență sânge" textFill="WHITE">
+                    <font><Font name="System Bold" size="40.0" /></font>
+                </Label>
+            </children>
+        </HBox>
+
+        <VBox alignment="CENTER" spacing="25.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Label text="Introduceți detaliile necesare pentru trimiterea alertei:" textFill="WHITE">
+                    <font><Font name="System Bold" size="22.0" /></font>
+                    <VBox.margin><Insets bottom="10.0" /></VBox.margin>
+                </Label>
+
+                <GridPane alignment="CENTER" hgap="20.0" vgap="20.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="180.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="450.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Grupa sanguină:" textFill="WHITE">
+                            <font><Font name="System Bold" size="20.0" /></font>
+                        </Label>
+                        <ComboBox fx:id="comboGrupa" prefHeight="45.0" prefWidth="120.0" styleClass="combo-capsule" GridPane.columnIndex="1" />
+
+                        <Label text="RH:" textFill="WHITE" GridPane.rowIndex="1">
+                            <font><Font name="System Bold" size="20.0" /></font>
+                        </Label>
+                        <ComboBox fx:id="comboRh" prefHeight="45.0" prefWidth="120.0" styleClass="combo-capsule" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                        <Label text="Titlu mesaj:" textFill="WHITE" GridPane.rowIndex="2">
+                            <font><Font name="System Bold" size="20.0" /></font>
+                        </Label>
+                        <TextField fx:id="fieldTitlu" prefHeight="45.0" prefWidth="450.0" styleClass="combo-capsule" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                        <Label text="Conținut mesaj:" textFill="WHITE" GridPane.rowIndex="3">
+                            <font><Font name="System Bold" size="20.0" /></font>
+                        </Label>
+                        <TextArea fx:id="fieldContinut" prefHeight="150.0" prefWidth="500.0" styleClass="text-area-modern" wrapText="true" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                    </children>
+                </GridPane>
+
+                <Button onAction="#handleSendAlert" prefHeight="55.0" prefWidth="240.0" styleClass="btn-action-white" text="Trimitere alertă">
+                    <VBox.margin><Insets top="15.0" /></VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+
+        <HBox alignment="BOTTOM_LEFT">
+            <padding><Insets bottom="40.0" left="50.0" /></padding>
+            <children>
+                <Button fx:id="btnBack" onAction="#handleBack" prefHeight="45.0" prefWidth="120.0" styleClass="btn-back" text="Înapoi" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

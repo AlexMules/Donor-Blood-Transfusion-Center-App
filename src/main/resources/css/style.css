@@ -352,3 +352,27 @@
     -fx-scale-x: 1.03;
     -fx-scale-y: 1.03;
 }
+
+/* Stil pentru TextArea (Conținut mesaj) */
+.text-area-modern {
+    -fx-control-inner-background: white;
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-font-size: 16px;
+    -fx-padding: 10;
+}
+
+.text-area-modern .content {
+    -fx-background-color: white;
+}
+
+/* Stil pentru TextField (Titlu mesaj) */
+.combo-capsule {
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-padding: 0 15 0 15;
+    -fx-font-size: 16px;
+    -fx-text-fill: black;
+}

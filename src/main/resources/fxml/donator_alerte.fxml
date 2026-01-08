@@ -7,7 +7,7 @@
 
 <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="950.0" spacing="15.0" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alex.donor.controller.AlertaController">
     <children>
-        <Label text="Alerte Stoc Sânge" textFill="WHITE">
+        <Label text="Urgențe Sânge" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="42.0" />
             </font>
