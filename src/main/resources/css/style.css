@@ -376,3 +376,45 @@
     -fx-font-size: 16px;
     -fx-text-fill: black;
 }
+
+/* Tabelul mare pentru stoc */
+.modern-table-large {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-padding: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 15, 0, 0, 10);
+}
+
+/* Centrarea textului în toate celulele și mărirea fontului */
+.modern-table-large .table-cell {
+    -fx-alignment: CENTER;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-border-color: #f2f2f2;
+    -fx-border-width: 0 1 1 0;
+}
+
+/* Stil pentru antetul coloanelor (centrat și mare) */
+.modern-table-large .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 15 0 15 0;
+}
+
+.modern-table-large .column-header .label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b30000;
+    -fx-alignment: CENTER;
+}
+
+/* Ajustarea înălțimii rândurilor pentru a umple spațiul vizibil cu cele 8 rânduri */
+.modern-table-large .table-row-cell {
+    -fx-cell-size: 60px; /* Înălțime mai mare pentru lizibilitate */
+}
+
+/* Eliminarea fundalului albastru la selecție pentru a păstra aspectul curat */
+.modern-table-large .table-row-cell:filled:selected {
+    -fx-background-color: #fff5f5;
+    -fx-background-insets: 0;
+}
