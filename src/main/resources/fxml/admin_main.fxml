@@ -36,6 +36,10 @@
                         prefHeight="65.0" prefWidth="400.0"
                         styleClass="admin-menu-button" text="Adăugare cont nou" />
 
+                <Button mnemonicParsing="false" onAction="#handleViewAccounts"
+                        prefHeight="65.0" prefWidth="400.0"
+                        styleClass="admin-menu-button" text="Vizualizare conturi existente" />
+
                 <Button mnemonicParsing="false" onAction="#handleDeleteAccount"
                         prefHeight="65.0" prefWidth="400.0"
                         styleClass="admin-menu-button" text="Ștergere cont existent" />

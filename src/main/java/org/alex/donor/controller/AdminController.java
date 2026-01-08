@@ -39,6 +39,12 @@ public class AdminController {
     }
 
     @FXML
+    public void handleViewAccounts() {
+        // Această metodă va încărca tabelul cu medici și biologi
+        loadScene("/fxml/admin_view_users.fxml", "Gestionare Conturi Personal");
+    }
+
+    @FXML
     public void handleLogout() {
         autentificareService.logout();
         loadScene("/fxml/login.fxml", "Login - Donor System");
