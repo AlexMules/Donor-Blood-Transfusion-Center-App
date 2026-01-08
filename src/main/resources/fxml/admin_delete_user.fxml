@@ -9,7 +9,7 @@
     <children>
         <Label text="Ștergere Cont Personal Medical" textFill="WHITE">
             <font>
-                <Font name="System Bold" size="32.0" />
+                <Font name="System Bold" size="40.0" />
             </font>
             <VBox.margin>
                 <Insets top="40.0" />
@@ -27,7 +27,7 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
             <VBox.margin>
-                <Insets left="40.0" right="40.0" />
+                <Insets top="70.0" left="40.0" right="40.0" />
             </VBox.margin>
         </TableView>
 
