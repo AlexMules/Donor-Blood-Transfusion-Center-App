@@ -142,8 +142,21 @@ public class MedicProgramariController implements Initializable {
      * Metodă placeholder pentru deschiderea ferestrei de detalii donator.
      */
     private void handleViewDetails(Programare p) {
-        // Aceasta va fi implementată ulterior pentru a deschide fereastra cu datele donatorului
-        System.out.println("Vizualizare detalii pentru programarea ID: " + p.getId());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/medic_detalii_donator.fxml"));
+            loader.setControllerFactory(springContext::getBean);
+            Parent root = loader.load();
+
+            MedicDetaliiDonatorController detailsController = loader.getController();
+            // Transmitem obiectul programare
+            detailsController.initData(p);
+
+            Stage stage = (Stage) tabelProgramari.getScene().getWindow();
+            stage.setScene(new Scene(root, 1000, 800));
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -159,5 +172,10 @@ public class MedicProgramariController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void incarcaDataSpecifica(LocalDate data) {
+        datePickerZi.setValue(data);
+        handleDateChange(); // Reîncarcă tabelul pentru acea dată
     }
 }

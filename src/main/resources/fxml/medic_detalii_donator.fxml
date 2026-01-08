@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="950.0" spacing="20.0" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alex.donor.controller.MedicDetaliiDonatorController">
+    <children>
+        <HBox alignment="TOP_LEFT">
+            <VBox.margin><Insets left="40.0" top="40.0" /></VBox.margin>
+            <children>
+                <Label text="Detalii Donator" textFill="WHITE">
+                    <font><Font name="System Bold" size="40.0" /></font>
+                </Label>
+            </children>
+        </HBox>
+
+        <VBox alignment="CENTER" spacing="30.0" VBox.vgrow="ALWAYS">
+            <children>
+                <VBox alignment="CENTER" maxWidth="600.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);">
+                    <padding><Insets bottom="30.0" left="40.0" right="40.0" top="30.0" /></padding>
+                    <children>
+                        <GridPane hgap="20.0" vgap="15.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="150.0" />
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="200.0" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="Nume:" textFill="#555555"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                <Label fx:id="lblNume" text="-" GridPane.columnIndex="1"><font><Font size="18.0" /></font></Label>
+
+                                <Label text="Prenume:" textFill="#555555" GridPane.rowIndex="1"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                <Label fx:id="lblPrenume" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1"><font><Font size="18.0" /></font></Label>
+
+                                <Label text="Vârstă:" textFill="#555555" GridPane.rowIndex="2"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                <Label fx:id="lblVarsta" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2"><font><Font size="18.0" /></font></Label>
+
+                                <Label text="Sex:" textFill="#555555" GridPane.rowIndex="3"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                <Label fx:id="lblSex" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3"><font><Font size="18.0" /></font></Label>
+
+                                <Label text="Greutate:" textFill="#555555" GridPane.rowIndex="4"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                <Label fx:id="lblGreutate" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4"><font><Font size="18.0" /></font></Label>
+
+                                <Label text="Înălțime:" textFill="#555555" GridPane.rowIndex="5"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                <Label fx:id="lblInaltime" text="-" GridPane.columnIndex="1" GridPane.rowIndex="5"><font><Font size="18.0" /></font></Label>
+
+                                <Label text="Grupă sanguină:" textFill="#b30000" GridPane.rowIndex="6"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                <Label fx:id="lblGrupa" text="-" GridPane.columnIndex="1" GridPane.rowIndex="6"><font><Font name="System Bold" size="18.0" /></font></Label>
+
+                                <Label text="RH:" textFill="#b30000" GridPane.rowIndex="7"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                <Label fx:id="lblRh" text="-" GridPane.columnIndex="1" GridPane.rowIndex="7"><font><Font name="System Bold" size="18.0" /></font></Label>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+
+                <HBox alignment="CENTER" spacing="40.0">
+                    <children>
+                        <Button onAction="#handleValideaza" prefHeight="60.0" prefWidth="250.0" styleClass="btn-small-green" text="Validare donare">
+                            <font><Font name="System Bold" size="16.0" /></font>
+                        </Button>
+                        <Button onAction="#handleRespinge" prefHeight="60.0" prefWidth="250.0" styleClass="btn-small-red" text="Invalidare donare">
+                            <font><Font name="System Bold" size="16.0" /></font>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <HBox alignment="BOTTOM_LEFT">
+            <padding><Insets bottom="40.0" left="50.0" /></padding>
+            <children>
+                <Button fx:id="btnBack" onAction="#handleBack" prefHeight="45.0" prefWidth="120.0" styleClass="btn-back" text="Înapoi" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
