@@ -70,8 +70,8 @@ public class DonatorController implements Initializable {
 
     @FXML
     public void handleIstoric() {
-        // Navigare către tabelul care folosește getIstoricAnalize()
-        loadScene("/fxml/donator_istoric.fxml", "Istoric Analize și Donări");
+        // Schimbăm calea de la donator_istoric.fxml la donator_rezultate_analize.fxml
+        loadScene("/fxml/donator_rezultate_analize.fxml", "Rezultate Analize");
     }
 
     @FXML

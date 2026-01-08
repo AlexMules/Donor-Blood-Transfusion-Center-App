@@ -431,3 +431,14 @@
 .btn-action-white-small:hover {
     -fx-background-color: #f0f0f0;
 }
+
+.result-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+}
+
+.list-view {
+    -fx-background-color: transparent;
+}
