@@ -81,4 +81,22 @@ public class BiologService {
         // Salvăm modificarea statusului donatorului
         donatorRepo.save(donator);
     }
+
+    @Transactional
+    public void scadeCantitateStoc(Integer idStoc, Integer cantitateDeScazut) {
+        StocSange stoc = stocRepo.findById(idStoc)
+                .orElseThrow(() -> new RuntimeException("Eroare: Grupa de sânge nu a fost găsită în stoc!"));
+
+        int nouaCantitate = stoc.getCantitateMl() - cantitateDeScazut;
+
+        // Validarea logică: nu putem avea stoc negativ
+        if (nouaCantitate < 0) {
+            throw new RuntimeException("Cantitatea trimisă nu poate fi mai mare decât cea existentă!");
+        }
+
+        stoc.setCantitateMl(nouaCantitate);
+        stocRepo.save(stoc);
+    }
+
+
 }

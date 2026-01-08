@@ -79,8 +79,36 @@ public class BiologStocController implements Initializable {
     }
 
     private void handleModificaCantitate(StocSange s) {
-        System.out.println("Modificare stoc pentru: " + s.getGrupaSanguina() + " " + s.getRh());
-        // Aici vei deschide fereastra de editare
+        try {
+            // 1. Încărcăm FXML-ul pentru pop-up
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/biolog_modifica_stoc.fxml"));
+
+            // 2. Setăm factory-ul pentru Spring
+            loader.setControllerFactory(springContext::getBean);
+
+            Parent root = loader.load();
+
+            // 3. Obținem controller-ul ferestrei pop-up
+            BiologModificaStocController controller = loader.getController();
+
+            // 4. Transmitem datele și o metodă de refresh (callback)
+            // Îi trimitem obiectul de stoc selectat și metoda incarcaDateStoc pentru a reîmprospăta tabelul după salvare
+            controller.initData(s, this::incarcaDateStoc);
+
+            // 5. Creăm o scenă nouă pentru fereastra pop-up
+            Stage stage = new Stage();
+            stage.setTitle("Modificare Cantitate Stoc");
+            stage.setScene(new Scene(root));
+
+            // 6. Setăm fereastra ca MODALĂ (blochează interacțiunea cu tabelul până e închisă)
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            System.err.println("Eroare la deschiderea ferestrei de modificare stoc: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
