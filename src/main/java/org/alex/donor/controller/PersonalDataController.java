@@ -44,24 +44,37 @@ public class PersonalDataController implements Initializable {
 
     @FXML
     public void handleBack() {
+        // 1. Obținem utilizatorul logat pentru a-i verifica rolul
         Utilizator userLogat = autentificareService.getUtilizatorLogat();
         String fxmlPath = "";
+        String titlu = "";
 
-        // Redirecționare în funcție de rolul utilizatorului
+        // 2. Stabilim destinația în funcție de rol
         if (userLogat.getRol() == Rol.ADMIN) {
             fxmlPath = "/fxml/admin_main.fxml";
-        } else if (userLogat.getRol() == Rol.MEDIC) {
+            titlu = "Administrator - Menu";
+        } else if (userLogat.getRol() == Rol.DONATOR) {
+            // Aceasta este linia care probabil îți lipsește:
+            fxmlPath = "/fxml/donator_main.fxml";
+            titlu = "Donator - Dashboard";
+        } else if (userLogat.getRol() == Rol.MEDIC || userLogat.getRol() == Rol.BIOLOG) {
             fxmlPath = "/fxml/medic_main.fxml";
-        } // Adaugă și restul rolurilor aici
+            titlu = "Personal Medical - Dashboard";
+        }
 
+        // 3. Încărcăm scena corespunzătoare
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
+
             Stage stage = (Stage) btnBack.getScene().getWindow();
+            // Folosim dimensiunea mare pentru dashboard-uri
             stage.setScene(new Scene(root, 1000, 800));
+            stage.setTitle(titlu);
             stage.centerOnScreen();
         } catch (IOException e) {
+            System.err.println("Eroare la navigarea înapoi: " + e.getMessage());
             e.printStackTrace();
         }
     }

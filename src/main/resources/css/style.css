@@ -168,3 +168,140 @@
     -fx-text-fill: white;
     -fx-padding: 0 0 5 10;           /* Puțin spațiu sub etichetă */
 }
+
+.btn-support {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-background-radius: 25;
+    -fx-font-weight: bold;
+    -fx-padding: 0 20 0 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+.btn-support:hover {
+    -fx-background-color: #f2f2f2;
+}
+
+/* Culori pentru Status */
+.status-eligibil {
+    -fx-text-fill: #00FF00; /* Verde intens */
+}
+
+.status-ineligibil {
+    -fx-text-fill: #FFD700; /* Galben/Auriu pentru ineligibil */
+}
+
+/* ListView transparent */
+.modern-list-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Stilul fiecărei celule (card) */
+.modern-list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10 0 10 0; /* Spațiu între carduri */
+}
+
+/* Cardul propriu-zis (se aplică din Java pe un VBox) */
+.alert-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+}
+
+.alert-card:hover {
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+}
+
+.alert-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b30000; /* Roșu închis pentru titlu alertă */
+}
+
+.alert-message {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+}
+
+.alert-date {
+    -fx-font-size: 14px;
+    -fx-text-fill: #777777;
+    -fx-font-style: italic;
+}
+
+/* Eliminăm bordurile și fundalul implicit al listei */
+.modern-list-view {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Stilul celulei care conține cardul */
+.modern-list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10 0 10 0; /* Spațiu între carduri */
+}
+
+/* Cardul de alertă propriu-zis */
+.alert-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 4);
+    -fx-border-color: #f0f0f0;
+    -fx-border-radius: 20;
+}
+
+.alert-card-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #cc0000; /* Roșu de alertă */
+}
+
+.alert-card-msg {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+}
+
+.alert-card-date {
+    -fx-font-size: 14px;
+    -fx-text-fill: #888888;
+    -fx-font-style: italic;
+}
+
+/* 1. Mărim conținutul mesajului */
+.alert-card-content {
+    -fx-font-size: 18px;          /* Mărit de la 16px */
+    -fx-text-fill: #333333;
+    -fx-line-spacing: 2px;
+}
+
+/* 2. Eliminăm efectul vizual de selecție (click) */
+.modern-list-view .list-cell:filled:selected {
+    -fx-background-color: transparent; /* Fundalul celulei rămâne transparent */
+}
+
+.modern-list-view .list-cell:filled:selected .alert-card {
+    -fx-background-color: white;       /* Cardul rămâne alb la click */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5); /* Umbra rămâne la fel */
+}
+
+/* Păstrăm textul negru/roșu chiar și când este "selectat" */
+.modern-list-view .list-cell:filled:selected .alert-card-title {
+    -fx-text-fill: #b30000;
+}
+
+.modern-list-view .list-cell:filled:selected .alert-card-content {
+    -fx-text-fill: #333333;
+}
+
+/* 3. Eliminăm chenarul albastru de focus care apare la click */
+.modern-list-view {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}

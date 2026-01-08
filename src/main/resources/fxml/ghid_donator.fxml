@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="950.0" spacing="20.0" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alex.donor.controller.GhidDonatorController">
+    <children>
+        <Label text="Ghidul Donatorului" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="40.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="20.0" top="50.0" />
+            </VBox.margin>
+        </Label>
+
+        <ScrollPane fitToWidth="true" maxWidth="850.0" prefHeight="500.0" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <content>
+                <VBox spacing="25.0" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 20;">
+                    <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </padding>
+                    <children>
+                        <Label text="1. Sângele este vital pentru viață și nu poate fi produs artificial. El poate fi obținut doar prin donare voluntară și ajută zilnic la salvarea de vieți." textFill="WHITE" wrapText="true">
+                            <font><Font size="18.0" /></font>
+                        </Label>
+
+                        <Label text="2. Sângele transportă oxigen și nutrienți, susține sistemul imunitar și este produs în măduva osoasă. Există 8 tipuri de sânge, determinate de grupa ABO (A, B, AB, O) și factorul Rh (+/−), iar compatibilitatea este esențială în transfuzii." textFill="WHITE" wrapText="true">
+                            <font><Font size="18.0" /></font>
+                        </Label>
+
+                        <Label text="3. Donarea de sânge este sigură și permite salvarea a până la 3 vieți, deoarece sângele este separat în componente: globule roșii, trombocite și plasmă. Transfuziile sunt necesare în operații, accidente, arsuri și tratamente oncologice." textFill="WHITE" wrapText="true">
+                            <font><Font size="18.0" /></font>
+                        </Label>
+
+                        <Label text="4. Înainte de donare, donatorul este evaluat medical, iar sângele este testat riguros pentru siguranța pacienților. Pentru a putea dona, este important să fii odihnit, hidratat și să îndeplinești condițiile medicale necesare." textFill="WHITE" wrapText="true">
+                            <font><Font size="18.0" /></font>
+                        </Label>
+
+                        <Label text="5. Donarea de sânge este un gest simplu care poate face diferența dintre viață și moarte." textFill="WHITE" wrapText="true">
+                            <font><Font name="System Bold" size="20.0" /></font>
+                        </Label>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <HBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
+            <children>
+                <Button fx:id="btnBack" onAction="#handleBack" prefHeight="45.0" prefWidth="120.0" styleClass="btn-back" text="Înapoi" />
+            </children>
+            <padding>
+                <Insets bottom="40.0" left="50.0" />
+            </padding>
+        </HBox>
+    </children>
+</VBox>

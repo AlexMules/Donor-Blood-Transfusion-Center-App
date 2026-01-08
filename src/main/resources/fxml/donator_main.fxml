@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="950.0" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alex.donor.controller.DonatorController">
+    <children>
+        <HBox alignment="TOP_CENTER" prefWidth="950.0">
+            <VBox.margin><Insets top="40.0" left="40.0" right="40.0" /></VBox.margin>
+            <children>
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Donator" textFill="WHITE">
+                            <font><Font name="System Bold" size="48.0" /></font>
+                        </Label>
+                        <HBox spacing="10.0" alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="Status:" textFill="WHITE">
+                                    <font><Font name="System Bold" size="28.0" /></font>
+                                </Label>
+                                <Label fx:id="statusLabel" text="Eligibil">
+                                    <font><Font name="System Bold" size="28.0" /></font>
+                                </Label>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <HBox spacing="15.0">
+                    <children>
+                        <Button fx:id="btnGhid" onAction="#handleGhid" prefHeight="45.0" styleClass="btn-support" text="Ghidul donatorului" />
+                        <Button fx:id="btnAlerte" onAction="#handleAlerte" prefHeight="45.0" styleClass="btn-support" text="🔔 Alerte" />
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+
+        <VBox alignment="CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Label text="Selectează acțiunea dorită:" textFill="WHITE">
+                    <font><Font name="System Bold" size="24.0" /></font>
+                    <VBox.margin><Insets bottom="10.0" /></VBox.margin>
+                </Label>
+
+                <Button onAction="#handleProgramare" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Programează-te" />
+                <Button onAction="#handleIstoric" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Istoric donări" />
+                <Button onAction="#handleViewPersonalData" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Vizualizare date personale" />
+            </children>
+        </VBox>
+
+        <Button fx:id="btnLogout" onAction="#handleLogout" prefHeight="50.0" prefWidth="250.0" styleClass="admin-menu-button" text="Deautentificare">
+            <VBox.margin><Insets bottom="50.0" /></VBox.margin>
+        </Button>
+    </children>
+</VBox>
