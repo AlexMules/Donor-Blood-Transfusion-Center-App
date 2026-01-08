@@ -46,21 +46,23 @@ public class PersonalDataController implements Initializable {
     public void handleBack() {
         // 1. Obținem utilizatorul logat pentru a-i verifica rolul
         Utilizator userLogat = autentificareService.getUtilizatorLogat();
-        String fxmlPath = "";
-        String titlu = "";
 
-        // 2. Stabilim destinația în funcție de rol
-        if (userLogat.getRol() == Rol.ADMIN) {
-            fxmlPath = "/fxml/admin_main.fxml";
-            titlu = "Administrator - Menu";
-        } else if (userLogat.getRol() == Rol.DONATOR) {
-            // Aceasta este linia care probabil îți lipsește:
-            fxmlPath = "/fxml/donator_main.fxml";
-            titlu = "Donator - Dashboard";
-        } else if (userLogat.getRol() == Rol.MEDIC || userLogat.getRol() == Rol.BIOLOG) {
-            fxmlPath = "/fxml/medic_main.fxml";
-            titlu = "Personal Medical - Dashboard";
-        }
+        if (userLogat == null) return;
+
+        // 2. Stabilim destinația folosind o structură switch elegantă
+        String fxmlPath = switch (userLogat.getRol()) {
+            case ADMIN   -> "/fxml/admin_main.fxml";
+            case DONATOR -> "/fxml/donator_main.fxml";
+            case MEDIC   -> "/fxml/medic_main.fxml";
+            case BIOLOG  -> "/fxml/biolog_main.fxml";
+        };
+
+        String titlu = switch (userLogat.getRol()) {
+            case ADMIN   -> "Administrator - Menu";
+            case DONATOR -> "Donator - Dashboard";
+            case MEDIC   -> "Medic - Dashboard";
+            case BIOLOG  -> "Biolog - Dashboard";
+        };
 
         // 3. Încărcăm scena corespunzătoare
         try {
@@ -69,7 +71,6 @@ public class PersonalDataController implements Initializable {
             Parent root = loader.load();
 
             Stage stage = (Stage) btnBack.getScene().getWindow();
-            // Folosim dimensiunea mare pentru dashboard-uri
             stage.setScene(new Scene(root, 1000, 800));
             stage.setTitle(titlu);
             stage.centerOnScreen();
