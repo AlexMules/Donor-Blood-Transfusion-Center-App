@@ -418,3 +418,16 @@
     -fx-background-color: #fff5f5;
     -fx-background-insets: 0;
 }
+
+.btn-action-white-small {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-text-fill: #b30000;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 5 15 5 15;
+}
+
+.btn-action-white-small:hover {
+    -fx-background-color: #f0f0f0;
+}
