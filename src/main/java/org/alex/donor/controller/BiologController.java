@@ -29,7 +29,7 @@ public class BiologController {
 
     @FXML
     public void handleVizualizareRezultate() {
-        loadScene("/fxml/biolog_vizualizare_rezultate.fxml", "Vizualizare Rezultate Analize");
+        loadScene("/fxml/biolog_rezultate_finalizate.fxml", "Vizualizare Rezultate Analize");
     }
 
     @FXML
