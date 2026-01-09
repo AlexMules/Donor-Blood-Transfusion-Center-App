@@ -1,3 +1,5 @@
+DESCHIDE SERVERUL BD (MySQL) INAINTE DE A RULA APLICATIA !!!!!
+
 administrator: email: admin@donor.ro
                parola: admin123
 			   
