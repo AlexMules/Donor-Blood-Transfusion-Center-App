@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="950.0" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.alex.donor.controller.AdminEditUserController">
+    <children>
+        <Label text="Editare Cont Personal Medical" textFill="WHITE">
+            <font><Font name="System Bold" size="36.0" /></font>
+            <VBox.margin><Insets top="30.0" bottom="20.0" /></VBox.margin>
+        </Label>
+
+        <VBox alignment="CENTER" maxWidth="700.0" spacing="10.0">
+            <children>
+                <HBox spacing="10.0">
+                    <VBox HBox.hgrow="ALWAYS" spacing="5.0">
+                        <Label text="Nume:" styleClass="info-label" />
+                        <TextField fx:id="numeField" editable="false" prefHeight="55.0" styleClass="info-display-field" />
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="5.0">
+                        <Label text="Prenume:" styleClass="info-label" />
+                        <TextField fx:id="prenumeField" editable="false" prefHeight="55.0" styleClass="info-display-field" />
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="5.0">
+                    <Label text="Rol actual:" styleClass="info-label" />
+                    <TextField fx:id="rolField" editable="false" prefHeight="55.0" styleClass="info-display-field" />
+                </VBox>
+
+                <VBox spacing="5.0">
+                    <Label text="Email actual:" styleClass="info-label" />
+                    <TextField fx:id="emailActualField" editable="false" prefHeight="55.0" styleClass="info-display-field" />
+                </VBox>
+
+                <Separator prefWidth="200.0">
+                    <VBox.margin><Insets top="10.0" bottom="10.0" /></VBox.margin>
+                </Separator>
+
+                <VBox spacing="5.0">
+                    <Label text="Email Nou:" styleClass="info-label" />
+                    <TextField fx:id="emailNouField" prefHeight="55.0" prefWidth="700.0"
+                               styleClass="input-field"
+                               promptText="Nu scrie nimic dacă nu dorești modificarea câmpului" />
+                </VBox>
+
+                <VBox spacing="5.0">
+                    <Label text="Parolă Nouă:" styleClass="info-label" />
+                    <PasswordField fx:id="parolaNouaField" prefHeight="55.0" prefWidth="700.0"
+                                   styleClass="input-field"
+                                   promptText="Nu scrie nimic dacă nu dorești modificarea câmpului" />
+                </VBox>
+
+                <Label fx:id="errorLabel" textFill="#ffcc00" visible="false" wrapText="true">
+                    <font><Font name="System Bold" size="16.0" /></font>
+                    <VBox.margin><Insets top="5.0" /></VBox.margin>
+                </Label>
+
+                <Button onAction="#handleSaveModifications" prefHeight="60.0" prefWidth="350.0"
+                        styleClass="admin-menu-button" text="Salvează Modificări">
+                    <VBox.margin><Insets top="15.0" /></VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+
+        <HBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
+            <children>
+                <Button fx:id="btnBack" onAction="#handleBack" prefHeight="45.0" prefWidth="120.0"
+                        styleClass="btn-back" text="Înapoi" />
+            </children>
+            <padding><Insets bottom="20.0" left="50.0" /></padding>
+        </HBox>
+    </children>
+</VBox>

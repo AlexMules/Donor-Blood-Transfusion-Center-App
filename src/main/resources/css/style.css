@@ -104,6 +104,13 @@
     -fx-background-color: #e0e0e0;
 }
 
+.input-field:prompt {
+    -fx-font-size: 15px;        /* Mărimea textului gri - o facem mai mică */
+    -fx-font-weight: normal;    /* Îl facem subtire pentru contrast cu textul scris */
+    -fx-font-style: italic;     /* Opțional: îl facem cursiv pentru a arăta clar că e o sugestie */
+    -fx-prompt-text-fill: gray;
+}
+
 /* Asigură-te că și câmpurile de text sunt rotunjite la fel */
 .input-field {
     -fx-background-radius: 20;
@@ -111,6 +118,10 @@
     -fx-background-color: white;
     -fx-padding: 10 15;
     -fx-border-color: transparent;
+    /* MODIFICARE: Font mai mare și îngroșat */
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
 }
 
 /* Centrarea și mărirea textului în toate celulele tabelului */
@@ -154,7 +165,7 @@
 
     /* Centrare și mărime text */
     -fx-alignment: CENTER;
-    -fx-font-size: 20px;
+    -fx-font-size: 22px;
     -fx-font-weight: bold;
 
     /* Opțional: o bordură fină dacă vrei să pară mai conturate pe fundalul roșu */

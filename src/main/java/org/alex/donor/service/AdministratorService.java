@@ -69,4 +69,28 @@ public class AdministratorService {
         }
         utilizatorRepo.deleteById(id);
     }
+
+    @Transactional
+    public void actualizeazaDatePersonal(Integer id, String nouEmail, String nouaParola) {
+        // 1. Căutăm utilizatorul în baza de date
+        Utilizator user = utilizatorRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilizatorul nu a fost găsit!"));
+
+        // 2. Actualizăm Email-ul dacă a fost completat și este diferit de cel actual
+        if (nouEmail != null && !nouEmail.trim().isEmpty() && !nouEmail.equals(user.getEmail())) {
+            // Verificăm dacă noul email este deja ocupat de altcineva
+            if (utilizatorRepo.findByEmail(nouEmail).isPresent()) {
+                throw new RuntimeException("Eroare: Email-ul " + nouEmail + " este deja utilizat de alt cont!");
+            }
+            user.setEmail(nouEmail);
+        }
+
+        // 3. Actualizăm Parola dacă a fost completată (o criptăm înainte de salvare)
+        if (nouaParola != null && !nouaParola.trim().isEmpty()) {
+            user.setParola(passwordEncoder.encode(nouaParola));
+        }
+
+        // 4. Salvăm modificările
+        utilizatorRepo.save(user);
+    }
 }

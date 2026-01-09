@@ -74,9 +74,21 @@ public class AdminViewUsersController implements Initializable {
         tabelUtilizatori.setItems(FXCollections.observableArrayList(personal));
     }
 
-    private void handleEditUser(Utilizator utilizator) {
-        // Aici va veni logica pentru deschiderea ferestrei de editare
-        System.out.println("Se dorește modificarea datelor pentru: " + utilizator.getEmail());
+    private void handleEditUser(Utilizator user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin_edit_user.fxml"));
+            loader.setControllerFactory(springContext::getBean);
+            Parent root = loader.load();
+
+            // Obținem controllerul ferestrei noi și îi pasăm utilizatorul selectat
+            AdminEditUserController controller = loader.getController();
+            controller.initData(user);
+
+            Stage stage = (Stage) tabelUtilizatori.getScene().getWindow();
+            stage.setScene(new Scene(root, 1000, 800));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
