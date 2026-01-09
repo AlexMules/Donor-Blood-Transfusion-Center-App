@@ -218,12 +218,6 @@ public class DonatorService {
             document.add(new Paragraph("Data primei donări: " + (prima != null ? prima.format(dtfSimplu) : "N/A"), fontNormal));
             document.add(new Paragraph("Data ultimei donări: " + (ultima != null ? ultima.format(dtfSimplu) : "N/A"), fontNormal));
 
-            // 8. FINALIZARE DOCUMENT
-            Paragraph finalMesaj = new Paragraph("\n\nAcest certificat a fost eliberat la data de: " +
-                    LocalDateTime.now().format(dtfSimplu), fontNormal);
-            finalMesaj.setAlignment(Element.ALIGN_RIGHT);
-            document.add(finalMesaj);
-
             document.close();
             return out.toByteArray();
         } catch (Exception e) {

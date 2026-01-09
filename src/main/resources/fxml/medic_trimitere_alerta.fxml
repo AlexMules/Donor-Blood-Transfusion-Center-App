@@ -38,12 +38,12 @@
                         <Label text="Grupa sanguină:" textFill="WHITE">
                             <font><Font name="System Bold" size="20.0" /></font>
                         </Label>
-                        <ComboBox fx:id="comboGrupa" prefHeight="45.0" prefWidth="120.0" styleClass="combo-capsule" GridPane.columnIndex="1" />
+                        <ComboBox fx:id="comboGrupa" prefHeight="45.0" prefWidth="250.0" styleClass="combo-capsule" GridPane.columnIndex="1" />
 
                         <Label text="RH:" textFill="WHITE" GridPane.rowIndex="1">
                             <font><Font name="System Bold" size="20.0" /></font>
                         </Label>
-                        <ComboBox fx:id="comboRh" prefHeight="45.0" prefWidth="120.0" styleClass="combo-capsule" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                        <ComboBox fx:id="comboRh" prefHeight="45.0" prefWidth="250.0" styleClass="combo-capsule" GridPane.rowIndex="1" GridPane.columnIndex="1" />
 
                         <Label text="Titlu mesaj:" textFill="WHITE" GridPane.rowIndex="2">
                             <font><Font name="System Bold" size="20.0" /></font>

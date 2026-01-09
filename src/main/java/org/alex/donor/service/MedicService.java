@@ -51,10 +51,15 @@ public class MedicService {
         p.setStatus(StatusProgramare.FINALIZATA);
         programareRepo.save(p);
 
-        // 2. Creăm o intrare în tabela 'donare' (NOW)
+        Donator donatorManaged = donatorRepo.findById(p.getDonator().getId())
+                .orElseThrow(() -> new RuntimeException("Donatorul nu a fost găsit în baza de date!"));
+
+        // 2. Creăm o intrare în tabela 'donare'
         Donare donare = new Donare();
-        donare.setDonator(p.getDonator());
-        donare.setDataDonare(LocalDateTime.now());
+        donare.setDonator(donatorManaged);
+        LocalDateTime dataSimulata = p.getDataOraProgramare().plusMinutes(15);
+        donare.setDataDonare(dataSimulata);
+
         Donare donareSalvata = donareRepo.save(donare);
 
         // 3. Creăm o intrare în 'analiza_sange' (IN_ASTEPTARE)
@@ -64,9 +69,8 @@ public class MedicService {
         analizaRepo.save(analiza);
 
         // 4. Donatorul devine INELIGIBIL_TEMPORAR
-        Donator d = p.getDonator();
-        d.setStatus(StatusDonator.INELIGIBIL_TEMPORAR);
-        donatorRepo.save(d);
+        donatorManaged.setStatus(StatusDonator.INELIGIBIL_TEMPORAR);
+        donatorRepo.save(donatorManaged);
     }
 
     /**

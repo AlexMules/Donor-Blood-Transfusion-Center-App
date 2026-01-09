@@ -58,7 +58,8 @@ public class BiologService {
         analiza.setRh(rh);
         analiza.setRezultat(rezultat);
         analiza.setMesaj(mesaj);
-        analiza.setDataIntroducereRezultat(LocalDateTime.now());
+        LocalDateTime dataDonarii = analiza.getDonare().getDataDonare();
+        analiza.setDataIntroducereRezultat(dataDonarii.plusDays(1));
         analizaRepo.save(analiza);
 
         // 3. Obținem donatorul
