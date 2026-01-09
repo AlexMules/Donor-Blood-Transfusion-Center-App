@@ -39,12 +39,10 @@ public class AdminViewUsersController implements Initializable {
     }
 
     private void configurareColoane() {
-        // Mapăm coloanele către atributele modelului Utilizator
         colNume.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNume()));
         colPrenume.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPrenume()));
         colRol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getRol().toString()));
 
-        // Configurăm butonul "Modifică date" pentru fiecare rând
         colActiuni.setCellFactory(param -> new TableCell<>() {
             private final Button btnModifica = new Button("Modifică date");
 
@@ -69,7 +67,6 @@ public class AdminViewUsersController implements Initializable {
     }
 
     private void incarcaUtilizatori() {
-        // Apelăm metoda din serviciul tău care returnează doar MEDICI și BIOLOGI
         List<Utilizator> personal = administratorService.getPersonalMedical();
         tabelUtilizatori.setItems(FXCollections.observableArrayList(personal));
     }
@@ -80,7 +77,6 @@ public class AdminViewUsersController implements Initializable {
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
 
-            // Obținem controllerul ferestrei noi și îi pasăm utilizatorul selectat
             AdminEditUserController controller = loader.getController();
             controller.initData(user);
 

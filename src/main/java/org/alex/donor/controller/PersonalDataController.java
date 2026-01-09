@@ -29,12 +29,11 @@ public class PersonalDataController implements Initializable {
     private final AutentificareService autentificareService;
     private final ApplicationContext springContext;
 
-    // Injectăm repository-urile pentru a găsi codul de parafă
     private final MedicRepository medicRepo;
     private final BiologRepository biologRepo;
 
     @FXML private TextField numeField, prenumeField, rolField, emailField, phoneField, codParafaField;
-    @FXML private VBox containerParafa; // Containerul pe care îl ascundem/afișăm
+    @FXML private VBox containerParafa;
     @FXML private Button btnBack;
 
     @Override
@@ -42,14 +41,14 @@ public class PersonalDataController implements Initializable {
         Utilizator userLogat = autentificareService.getUtilizatorLogat();
 
         if (userLogat != null) {
-            // 1. Date comune tuturor utilizatorilor
+            // date comune tuturor utilizatorilor
             numeField.setText(userLogat.getNume());
             prenumeField.setText(userLogat.getPrenume());
             rolField.setText(userLogat.getRol().toString());
             emailField.setText(userLogat.getEmail());
             phoneField.setText(userLogat.getNrTelefon());
 
-            // 2. Logică specifică pentru Medic și Biolog
+            // logica specifica pentru medic/biolog
             if (userLogat.getRol() == Rol.MEDIC) {
                 medicRepo.findByUtilizator(userLogat).ifPresent(medic -> {
                     activareCampParafa(medic.getCodParafa());
@@ -62,9 +61,6 @@ public class PersonalDataController implements Initializable {
         }
     }
 
-    /**
-     * Face vizibil containerul și populează codul de parafă
-     */
     private void activareCampParafa(String cod) {
         containerParafa.setVisible(true);
         containerParafa.setManaged(true);

@@ -43,12 +43,10 @@ public class BiologStocController implements Initializable {
     }
 
     private void configurareColoane() {
-        // Mapare conform entității StocSange
         colGrupa.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getGrupaSanguina().toString()));
         colRh.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getRh().toString()));
         colCantitate.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getCantitateMl()));
 
-        // Setăm politica de redimensionare programatic (sau în FXML) pentru a umple tabelul
         tabelStoc.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
         colActiuni.setCellFactory(param -> new TableCell<>() {
@@ -74,33 +72,21 @@ public class BiologStocController implements Initializable {
     }
 
     private void incarcaDateStoc() {
-        // MedicService returnează lista din repo
         tabelStoc.setItems(FXCollections.observableArrayList(medicService.getStocSangeComplet()));
     }
 
     private void handleModificaCantitate(StocSange s) {
         try {
-            // 1. Încărcăm FXML-ul pentru pop-up
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/biolog_modifica_stoc.fxml"));
-
-            // 2. Setăm factory-ul pentru Spring
             loader.setControllerFactory(springContext::getBean);
 
             Parent root = loader.load();
-
-            // 3. Obținem controller-ul ferestrei pop-up
             BiologModificaStocController controller = loader.getController();
-
-            // 4. Transmitem datele și o metodă de refresh (callback)
-            // Îi trimitem obiectul de stoc selectat și metoda incarcaDateStoc pentru a reîmprospăta tabelul după salvare
             controller.initData(s, this::incarcaDateStoc);
 
-            // 5. Creăm o scenă nouă pentru fereastra pop-up
             Stage stage = new Stage();
             stage.setTitle("Modificare Cantitate Stoc");
             stage.setScene(new Scene(root));
-
-            // 6. Setăm fereastra ca MODALĂ (blochează interacțiunea cu tabelul până e închisă)
             stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
             stage.setResizable(false);
             stage.show();
@@ -115,7 +101,6 @@ public class BiologStocController implements Initializable {
     public void handleBack() {
         Utilizator userLogat = autentificareService.getUtilizatorLogat();
 
-        // Acum navigarea este dinamică bazată pe cine este la tastatură
         String fxmlPath = switch (userLogat.getRol()) {
             case MEDIC -> "/fxml/medic_main.fxml";
             case BIOLOG -> "/fxml/biolog_main.fxml";

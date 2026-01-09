@@ -33,11 +33,9 @@ public class BiologVizualizareDetaliiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Inițializarea de bază (dacă e cazul)
     }
 
     public void initData(AnalizaSange analiza) {
-        // Maparea datelor din obiectul AnalizaSange către interfață
         txtNume.setText(analiza.getDonare().getDonator().getUtilizator().getNume());
         txtPrenume.setText(analiza.getDonare().getDonator().getUtilizator().getPrenume());
 

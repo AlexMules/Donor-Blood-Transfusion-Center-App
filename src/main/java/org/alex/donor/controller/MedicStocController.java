@@ -42,7 +42,6 @@ public class MedicStocController implements Initializable {
     }
 
     private void configurareColoane() {
-        // Mapăm datele conform modelului tău StocSange
         colGrupa.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().getGrupaSanguina().toString()));
 
@@ -54,7 +53,6 @@ public class MedicStocController implements Initializable {
     }
 
     private void incarcaDateStoc() {
-        // Preluăm lista completă din MySQL prin MedicService
         try {
             tabelStoc.setItems(FXCollections.observableArrayList(medicService.getStocSangeComplet()));
         } catch (Exception e) {

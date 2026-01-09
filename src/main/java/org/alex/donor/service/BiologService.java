@@ -27,10 +27,7 @@ public class BiologService {
     private final StocSangeRepository stocRepo;
     private final DonatorRepository donatorRepo;
 
-    /**
-     * CERINȚA: Vizualizare sânge donat care așteaptă rezultatul.
-     * Returnează analizele cu status IN_ASTEPTARE.
-     */
+
     public List<AnalizaSange> getAnalizeInAsteptare() {
         return analizaRepo.findAllByRezultat(RezultatAnaliza.IN_ASTEPTARE)
                 .stream()
@@ -48,11 +45,8 @@ public class BiologService {
                                            GrupaSanguina grupa, Rh rh,
                                            RezultatAnaliza rezultat, String mesaj) {
 
-        // 1. Găsim analiza în așteptare
         AnalizaSange analiza = analizaRepo.findById(idAnaliza)
                 .orElseThrow(() -> new RuntimeException("Analiza nu a fost găsită!"));
-
-        // 2. Actualizăm datele analizei
         analiza.setCantitateMl(cantitate);
         analiza.setGrupaSanguina(grupa);
         analiza.setRh(rh);
@@ -62,30 +56,18 @@ public class BiologService {
         analiza.setDataIntroducereRezultat(dataDonarii.plusDays(1));
         analizaRepo.save(analiza);
 
-        // 3. Obținem donatorul
         Donator donator = analiza.getDonare().getDonator();
 
-        // 4. Logica de Verdict (Stoc + Status Donator)
         if (rezultat == RezultatAnaliza.ADMIS) {
-            // --- CAZ: SÂNGE BUN ---
-            // Actualizăm stocul
             StocSange stoc = stocRepo.findByGrupaSanguinaAndRh(grupa, rh)
                     .orElseThrow(() -> new RuntimeException("Combinația de stoc nu există!"));
 
             stoc.setCantitateMl(stoc.getCantitateMl() + cantitate);
             stocRepo.save(stoc);
-
-            // Donatorul devine ELIGIBIL din nou
             donator.setStatus(StatusDonator.ELIGIBIL);
         } else {
-            // --- CAZ: SÂNGE RĂU / CONTAMINAT ---
-            // Nu modificăm stocul
-
-            // Donatorul devine INELIGIBIL_PERMANENT (nu mai poate face programări niciodată)
             donator.setStatus(StatusDonator.INELIGIBIL_PERMANENT);
         }
-
-        // Salvăm modificarea statusului donatorului
         donatorRepo.save(donator);
     }
 
@@ -96,7 +78,6 @@ public class BiologService {
 
         int nouaCantitate = stoc.getCantitateMl() - cantitateDeScazut;
 
-        // Validarea logică: nu putem avea stoc negativ
         if (nouaCantitate < 0) {
             throw new RuntimeException("Cantitatea trimisă nu poate fi mai mare decât cea existentă!");
         }
@@ -104,6 +85,4 @@ public class BiologService {
         stoc.setCantitateMl(nouaCantitate);
         stocRepo.save(stoc);
     }
-
-
 }

@@ -1,67 +1,61 @@
-/* Fundalul principal cu gradient vertical conform Figma */
 .root {
     -fx-background-color: linear-gradient(to bottom, #a10000, #4a0000);
 }
 
-/* Containerul alb ("pastila") care conține iconița și câmpul de text */
 .input-container {
     -fx-background-color: white;
-    -fx-background-radius: 30; /* Rotunjire maximă pentru aspect de capsulă */
-    -fx-padding: 2 15 2 15;   /* Spațiu interior pentru a nu lipi elementele de margini */
+    -fx-background-radius: 30;
+    -fx-padding: 2 15 2 15;
     -fx-alignment: center-left;
-    -fx-max-width: 320;       /* Lățime optimă pentru formular */
+    -fx-max-width: 320;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
 }
 
-/* Stil pentru TextField și PasswordField din interiorul capsulei */
 .transparent-field {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-font-size: 16px;
-    -fx-text-fill: #333333; /* Text închis la culoare pe fundal alb */
-    -fx-prompt-text-fill: #888888; /* Culoarea textului sugestie (Email/Parolă) */
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #888888;
 }
 
-/* Stil general pentru butoane (Continuă / Înregistrează-te) */
 .button {
     -fx-background-radius: 30;
     -fx-background-color: white;
-    -fx-text-fill: black; /* Text negru conform ultimei tale cerințe */
+    -fx-text-fill: black;
     -fx-font-weight: bold;
-    -fx-font-size: 18px; /* Dimensiune mărită */
+    -fx-font-size: 18px;
     -fx-padding: 10 30 10 30;
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 3);
 }
 
-/* Efect vizual la trecerea mouse-ului peste butoane */
 .button:hover {
     -fx-background-color: #e6e6e6;
 }
 
-/* Stil pentru textele de tip Label de pe fundalul roșu */
+
 .label {
     -fx-font-smoothing-type: lcd;
 }
 
 .admin-menu-button {
-    -fx-font-size: 18px;             /* Mărim textul */
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-padding: 15 30 15 30;        /* Mărim spațiul interior (mai înalte și mai late) */
-    -fx-background-radius: 30;       /* Rotunjire mai pronunțată pentru aspect modern */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); /* Umbră mai vizibilă */
+    -fx-padding: 15 30 15 30;
+    -fx-background-radius: 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
 }
 
-/* Efect de mărire ușoară la trecerea mouse-ului */
+
 .admin-menu-button:hover {
     -fx-background-color: #f0f0f0;
-    -fx-scale-x: 1.05;               /* Se mărește ușor pe orizontală */
-    -fx-scale-y: 1.05;               /* Se mărește ușor pe verticală */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
-/* Rotunjire ComboBox */
 .combo-box-custom {
     -fx-background-radius: 25;
     -fx-border-radius: 25;
@@ -71,11 +65,10 @@
     -fx-cursor: hand;
 }
 
-/* Stil pentru butoanele de meniu (Adaugă utilizator) */
 .admin-menu-button {
     -fx-background-color: white;
     -fx-text-fill: black;
-    -fx-background-radius: 30; /* Valoare mare pentru formă de capsulă */
+    -fx-background-radius: 30;
     -fx-border-radius: 30;
     -fx-font-weight: bold;
     -fx-font-size: 18px;
@@ -89,7 +82,6 @@
     -fx-scale-y: 1.02;
 }
 
-/* Stil pentru butonul Înapoi */
 .btn-back {
     -fx-background-color: white;
     -fx-text-fill: black;
@@ -105,47 +97,42 @@
 }
 
 .input-field:prompt {
-    -fx-font-size: 15px;        /* Mărimea textului gri - o facem mai mică */
-    -fx-font-weight: normal;    /* Îl facem subtire pentru contrast cu textul scris */
-    -fx-font-style: italic;     /* Opțional: îl facem cursiv pentru a arăta clar că e o sugestie */
+    -fx-font-size: 15px;
+    -fx-font-weight: normal;
+    -fx-font-style: italic;
     -fx-prompt-text-fill: gray;
 }
 
-/* Asigură-te că și câmpurile de text sunt rotunjite la fel */
 .input-field {
     -fx-background-radius: 20;
     -fx-border-radius: 20;
     -fx-background-color: white;
     -fx-padding: 10 15;
     -fx-border-color: transparent;
-    /* MODIFICARE: Font mai mare și îngroșat */
     -fx-font-size: 22px;
     -fx-font-weight: bold;
     -fx-text-fill: black;
 }
 
-/* Centrarea și mărirea textului în toate celulele tabelului */
 .custom-table .table-cell {
-    -fx-alignment: CENTER;           /* Centrează textul orizontal și vertical */
-    -fx-font-size: 18px;             /* Mărește textul (ajustează după preferință) */
+    -fx-alignment: CENTER;
+    -fx-font-size: 18px;
     -fx-text-fill: #333333;
 }
 
-/* Stil pentru antetul coloanelor (opțional, pentru consistență) */
 .custom-table .column-header .label {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-alignment: CENTER;
 }
 
-/* Micșorarea butoanelor de ștergere din tabel */
 .btn-delete-row {
     -fx-background-color: #ffcc00;
     -fx-text-fill: black;
     -fx-background-radius: 15;
     -fx-font-weight: bold;
-    -fx-font-size: 16px;             /* Text mai mic pentru buton */
-    -fx-padding: 8 20;          /* Padding redus pentru a fi mai mic */
+    -fx-font-size: 16px;
+    -fx-padding: 8 20;
     -fx-cursor: hand;
 }
 
@@ -153,31 +140,27 @@
     -fx-background-color: #ffd633;
 }
 
-/* CLASĂ NOUĂ: Doar pentru fereastra de Date Personale */
 .info-display-field {
-    -fx-background-color: #ffffff;    /* Alb pur */
-    -fx-text-fill: #000000;          /* Negru pur */
-    -fx-opacity: 1.0;                /* Eliminăm transparența pentru a păstra albul strălucitor */
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-opacity: 1.0;
 
     -fx-background-radius: 25;
     -fx-border-radius: 25;
     -fx-padding: 5 20;
 
-    /* Centrare și mărime text */
     -fx-alignment: CENTER;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
 
-    /* Opțional: o bordură fină dacă vrei să pară mai conturate pe fundalul roșu */
     -fx-border-color: transparent;
 }
 
-/* Stil pentru etichetele de deasupra (Nume, Prenume etc.) */
 .info-label {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-padding: 0 0 5 10;           /* Puțin spațiu sub etichetă */
+    -fx-padding: 0 0 5 10;
 }
 
 .btn-support {
@@ -194,28 +177,25 @@
     -fx-background-color: #f2f2f2;
 }
 
-/* Culori pentru Status */
+
 .status-eligibil {
-    -fx-text-fill: #00FF00; /* Verde intens */
+    -fx-text-fill: #00FF00;
 }
 
 .status-ineligibil {
-    -fx-text-fill: #FFD700; /* Galben/Auriu pentru ineligibil */
+    -fx-text-fill: #FFD700;
 }
 
-/* ListView transparent */
 .modern-list-view {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
-/* Stilul fiecărei celule (card) */
 .modern-list-view .list-cell {
     -fx-background-color: transparent;
-    -fx-padding: 10 0 10 0; /* Spațiu între carduri */
+    -fx-padding: 10 0 10 0;
 }
 
-/* Cardul propriu-zis (se aplică din Java pe un VBox) */
 .alert-card {
     -fx-background-color: white;
     -fx-background-radius: 20;
@@ -231,7 +211,7 @@
 .alert-title {
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: #b30000; /* Roșu închis pentru titlu alertă */
+    -fx-text-fill: #b30000;
 }
 
 .alert-message {
@@ -245,20 +225,19 @@
     -fx-font-style: italic;
 }
 
-/* Eliminăm bordurile și fundalul implicit al listei */
+
 .modern-list-view {
     -fx-background-color: transparent;
     -fx-background: transparent;
     -fx-border-color: transparent;
 }
 
-/* Stilul celulei care conține cardul */
+
 .modern-list-view .list-cell {
     -fx-background-color: transparent;
-    -fx-padding: 10 0 10 0; /* Spațiu între carduri */
+    -fx-padding: 10 0 10 0;
 }
 
-/* Cardul de alertă propriu-zis */
 .alert-card {
     -fx-background-color: white;
     -fx-background-radius: 20;
@@ -271,7 +250,7 @@
 .alert-card-title {
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: #cc0000; /* Roșu de alertă */
+    -fx-text-fill: #cc0000;
 }
 
 .alert-card-msg {
@@ -285,24 +264,23 @@
     -fx-font-style: italic;
 }
 
-/* 1. Mărim conținutul mesajului */
+
 .alert-card-content {
-    -fx-font-size: 18px;          /* Mărit de la 16px */
+    -fx-font-size: 18px;
     -fx-text-fill: #333333;
     -fx-line-spacing: 2px;
 }
 
-/* 2. Eliminăm efectul vizual de selecție (click) */
+
 .modern-list-view .list-cell:filled:selected {
-    -fx-background-color: transparent; /* Fundalul celulei rămâne transparent */
+    -fx-background-color: transparent;
 }
 
 .modern-list-view .list-cell:filled:selected .alert-card {
-    -fx-background-color: white;       /* Cardul rămâne alb la click */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5); /* Umbra rămâne la fel */
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
 }
 
-/* Păstrăm textul negru/roșu chiar și când este "selectat" */
 .modern-list-view .list-cell:filled:selected .alert-card-title {
     -fx-text-fill: #b30000;
 }
@@ -311,13 +289,11 @@
     -fx-text-fill: #333333;
 }
 
-/* 3. Eliminăm chenarul albastru de focus care apare la click */
 .modern-list-view {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
 
-/* Panourile principale */
 .appointment-box-green {
     -fx-background-color: #1e6b41;
     -fx-background-radius: 20;
@@ -330,7 +306,6 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 15, 0, 0, 8);
 }
 
-/* Stil pentru DatePicker și ComboBox (capsulă albă) */
 .combo-capsule, .date-picker {
     -fx-background-color: white;
     -fx-background-radius: 25;
@@ -347,7 +322,6 @@
     -fx-background-color: transparent;
 }
 
-/* Butoanele albe din interiorul panourilor */
 .btn-action-white {
     -fx-background-color: white;
     -fx-background-radius: 30;
@@ -364,7 +338,6 @@
     -fx-scale-y: 1.03;
 }
 
-/* Stil pentru TextArea (Conținut mesaj) */
 .text-area-modern {
     -fx-control-inner-background: white;
     -fx-background-color: white;
@@ -378,7 +351,6 @@
     -fx-background-color: white;
 }
 
-/* Stil pentru TextField (Titlu mesaj) */
 .combo-capsule {
     -fx-background-color: white;
     -fx-background-radius: 25;
@@ -388,7 +360,6 @@
     -fx-text-fill: black;
 }
 
-/* Tabelul mare pentru stoc */
 .modern-table-large {
     -fx-background-color: white;
     -fx-background-radius: 15;
@@ -396,7 +367,6 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 15, 0, 0, 10);
 }
 
-/* Centrarea textului în toate celulele și mărirea fontului */
 .modern-table-large .table-cell {
     -fx-alignment: CENTER;
     -fx-font-size: 20px;
@@ -406,7 +376,6 @@
     -fx-border-width: 0 1 1 0;
 }
 
-/* Stil pentru antetul coloanelor (centrat și mare) */
 .modern-table-large .column-header {
     -fx-background-color: #f8f9fa;
     -fx-padding: 15 0 15 0;
@@ -419,12 +388,10 @@
     -fx-alignment: CENTER;
 }
 
-/* Ajustarea înălțimii rândurilor pentru a umple spațiul vizibil cu cele 8 rânduri */
 .modern-table-large .table-row-cell {
-    -fx-cell-size: 60px; /* Înălțime mai mare pentru lizibilitate */
+    -fx-cell-size: 60px;
 }
 
-/* Eliminarea fundalului albastru la selecție pentru a păstra aspectul curat */
 .modern-table-large .table-row-cell:filled:selected {
     -fx-background-color: #fff5f5;
     -fx-background-insets: 0;
@@ -447,19 +414,16 @@
     -fx-background-color: white;
     -fx-background-radius: 15;
     -fx-padding: 20;
-    /* Efect de umbră pentru aspectul de card ridicat */
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 5);
 }
 
-/* Eliminăm fundalul implicit al listei pentru a vedea fundalul roșu al aplicației */
 .list-view {
     -fx-background-color: transparent;
 }
 .list-cell:filled:selected, .list-cell:filled:hover {
-    -fx-background-color: transparent; /* Cardul nu trebuie să se coloreze la click */
+    -fx-background-color: transparent;
 }
 
-/* Rezolvă bug-ul de transparență: Fundal alb solid pentru lista de ore */
 .combo-box-popup .list-view {
     -fx-background-color: white;
     -fx-background-radius: 10;
@@ -468,7 +432,6 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
 }
 
-/* Stilizare rânduri ore */
 .combo-box-popup .list-cell {
     -fx-padding: 10;
     -fx-background-color: white;
@@ -476,7 +439,6 @@
     -fx-font-size: 16px;
 }
 
-/* Culoare la hover pe oră */
 .combo-box-popup .list-cell:hover {
     -fx-background-color: #f4f4f4;
 }

@@ -18,7 +18,6 @@ public class Programare {
     @JoinColumn(name = "id_donator", nullable = false)
     private Donator donator;
 
-    // Modifică aici:
     private LocalDateTime dataOraProgramare;
 
     @Enumerated(EnumType.STRING)

@@ -16,7 +16,6 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
 
     private final ApplicationContext context;
 
-    // Calea către primul tău fișier FXML (ex: login.fxml)
     @Value("classpath:/fxml/login.fxml")
     private Resource loginFxml;
 
@@ -28,9 +27,6 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
     public void onApplicationEvent(StageReadyEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(loginFxml.getURL());
-
-            // ACEASTA ESTE LINIA MAGICĂ:
-            // Îi spune JavaFX să folosească Spring pentru a crea controllerul
             fxmlLoader.setControllerFactory(context::getBean);
 
             Parent parent = fxmlLoader.load();

@@ -21,7 +21,6 @@ public class BiologModificaStocController implements Initializable {
 
     private final BiologService biologService;
 
-    // Injectăm containerul principal pentru a-i putea cere focusul
     @FXML private VBox mainContainer;
     @FXML private TextField txtCantitateActuala, txtCantitateTrimisa;
 
@@ -30,7 +29,6 @@ public class BiologModificaStocController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Platform.runLater asigură că mutarea focusului are loc după ce fereastra e complet desenată
         Platform.runLater(() -> {
             if (mainContainer != null) {
                 mainContainer.requestFocus();
@@ -60,13 +58,11 @@ public class BiologModificaStocController implements Initializable {
                 return;
             }
 
-            // Verificăm dacă nu se trimite mai mult decât există în stoc
             if (trimis > stocCurent.getCantitateMl()) {
                 new Alert(Alert.AlertType.ERROR, "Nu puteți trimite " + trimis + " mL. În stoc sunt doar " + stocCurent.getCantitateMl() + " mL!").show();
                 return;
             }
 
-            // Apelăm serviciul corect pentru scăderea stocului
             biologService.scadeCantitateStoc(stocCurent.getId(), trimis);
 
             new Alert(Alert.AlertType.INFORMATION, "Stocul a fost actualizat cu succes!").showAndWait();
@@ -83,7 +79,6 @@ public class BiologModificaStocController implements Initializable {
 
     @FXML
     public void handleAnuleaza() {
-        // Închidem fereastra curentă (Stage-ul)
         ((Stage) mainContainer.getScene().getWindow()).close();
     }
 }

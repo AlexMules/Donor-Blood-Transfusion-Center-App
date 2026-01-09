@@ -21,17 +21,14 @@ public class ProgramareService {
 
     @Transactional
     public void creeazaProgramare(Donator d, LocalDateTime dataOra) {
-        // 1. Verificare Eligibilitate
         if (donatorService.getStatusDonator(d) != StatusDonator.ELIGIBIL) {
             throw new RuntimeException("Doar donatorii eligibili se pot programa!");
         }
 
-        // 2. Verificare dacă are deja o programare activă
         if (getProgramareActiva(d).isPresent()) {
             throw new RuntimeException("Ai deja o programare activă confirmată!");
         }
 
-        // 3. Verificare disponibilitate slot (pentru siguranță)
         if (esteOraOcupata(dataOra)) {
             throw new RuntimeException("Acest interval orar tocmai a fost ocupat!");
         }
@@ -48,7 +45,6 @@ public class ProgramareService {
         Programare p = programareRepo.findById(idProgramare)
                 .orElseThrow(() -> new RuntimeException("Programarea nu a fost găsită!"));
 
-        // Regula ta: se poate anula doar cu 24h înainte
         if (p.getDataOraProgramare().isBefore(LocalDateTime.now().plusDays(1))) {
             throw new RuntimeException("O programare poate fi anulată cu cel puțin 24 de ore înainte!");
         }
@@ -58,7 +54,6 @@ public class ProgramareService {
     }
 
     public Optional<Programare> getProgramareActiva(Donator d) {
-        // Căutăm o programare CONFIRMATA care are data în viitor (începând de azi)
         return programareRepo.findFirstByDonatorAndStatusAndDataOraProgramareAfter(
                 d, StatusProgramare.CONFIRMATA, LocalDateTime.now());
     }

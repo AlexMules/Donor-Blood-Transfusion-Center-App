@@ -23,7 +23,6 @@ import java.util.ResourceBundle;
 @RequiredArgsConstructor
 public class MedicAlertaController implements Initializable {
 
-    // Folosim MedicService conform codului tău
     private final MedicService medicService;
     private final ApplicationContext springContext;
 
@@ -35,37 +34,31 @@ public class MedicAlertaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Populăm selecțiile pentru Grupă și RH din Enum-uri
         comboGrupa.setItems(FXCollections.observableArrayList(GrupaSanguina.values()));
         comboRh.setItems(FXCollections.observableArrayList(Rh.values()));
     }
 
     @FXML
     public void handleSendAlert() {
-        // 1. Preluare date din UI
         GrupaSanguina grupa = comboGrupa.getValue();
         Rh rh = comboRh.getValue();
         String titlu = fieldTitlu.getText().trim();
         String continut = fieldContinut.getText().trim();
 
-        // 2. Validare câmpuri
         if (grupa == null || rh == null || titlu.isEmpty() || continut.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Vă rugăm să completați toate câmpurile!").show();
             return;
         }
 
         try {
-            // 3. Apelăm metoda din MedicService
             medicService.trimiteAlertaUrgenta(grupa, rh, titlu, continut);
 
-            // 4. Notificare succes
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succes");
             alert.setHeaderText(null);
             alert.setContentText("Alerta a fost salvată și trimisă donatorilor compatibili!");
             alert.showAndWait();
 
-            // 5. Resetare câmpuri
             fieldTitlu.clear();
             fieldContinut.clear();
             comboGrupa.setValue(null);

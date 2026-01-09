@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 public class BiologRezultateFinalizateController implements Initializable {
 
     private final BiologService biologService;
-    private final AutentificareService autentificareService; // Injectăm serviciul de autentificare
+    private final AutentificareService autentificareService;
     private final ApplicationContext springContext;
 
     @FXML private TableView<AnalizaSange> tabelRezultate;
@@ -107,7 +107,6 @@ public class BiologRezultateFinalizateController implements Initializable {
 
     @FXML
     public void handleBack() {
-        // Logica de redirecționare dinamică
         Utilizator user = autentificareService.getUtilizatorLogat();
         String fxmlPath = "/fxml/biolog_main.fxml"; // Default
         String titlu = "Biolog - Dashboard";

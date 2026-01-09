@@ -34,7 +34,6 @@ public class BiologController {
 
     @FXML
     public void handleVizualizareStoc() {
-        // Schimbă din medic_stoc.fxml în biolog_stoc.fxml
         loadScene("/fxml/biolog_stoc.fxml", "Gestiune Stoc Sânge");
     }
 
@@ -57,7 +56,6 @@ public class BiologController {
 
             Stage stage = (Stage) btnLogout.getScene().getWindow();
 
-            // Dimensiuni adaptate tipului de pagină
             if (fxmlPath.contains("login")) {
                 stage.setScene(new Scene(root, 800, 500));
                 stage.setResizable(false);

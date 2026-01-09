@@ -28,21 +28,18 @@ public class MedicDetaliiDonatorController {
     @FXML private Button btnBack;
 
     private Programare programareCurenta;
-    private LocalDate dataProvenienta; // Salvăm data pentru a ne întoarce la ea
+    private LocalDate dataProvenienta;
 
     public void initData(Programare p) {
         this.programareCurenta = p;
-        this.dataProvenienta = p.getDataOraProgramare().toLocalDate(); // Salvăm data
+        this.dataProvenienta = p.getDataOraProgramare().toLocalDate();
 
         lblNume.setText(p.getDonator().getUtilizator().getNume());
         lblPrenume.setText(p.getDonator().getUtilizator().getPrenume());
         lblVarsta.setText(String.valueOf(p.getDonator().getVarsta()));
         lblSex.setText(p.getDonator().getSex().toString());
         lblGreutate.setText(p.getDonator().getGreutate() + " kg");
-
-        // Afișare corectă în metri conform observației tale
         lblInaltime.setText(p.getDonator().getInaltime() + " m");
-
         lblGrupa.setText(p.getDonator().getGrupaSanguina().toString());
         lblRh.setText(p.getDonator().getRh().toString());
     }
@@ -52,21 +49,17 @@ public class MedicDetaliiDonatorController {
         if (programareCurenta == null) return;
 
         try {
-            // Apelăm logica de business din serviciu
             medicService.valideazaDonare(programareCurenta.getId());
 
-            // Afișăm confirmarea succesului
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succes");
             alert.setHeaderText(null);
             alert.setContentText("Donarea a fost validată. Programarea este finalizată, iar analizele au fost trimise către biolog.");
             alert.showAndWait();
 
-            // Navigăm înapoi la lista de programări (păstrând data selectată)
             handleBack();
 
         } catch (Exception e) {
-            // Gestionăm eventualele erori (ex: programarea nu mai există)
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("Eroare");
             errorAlert.setHeaderText("Nu s-a putut valida donarea");
@@ -75,27 +68,19 @@ public class MedicDetaliiDonatorController {
         }
     }
 
-    /**
-     * Fluxul de invalidare: Donatorul este declarat INAPT (respins).
-     * Se apelează medicService.respingeDonare care:
-     * 1. Marchează programarea ca RESPINSA.
-     */
     @FXML
     public void handleRespinge() {
         if (programareCurenta == null) return;
 
         try {
-            // Apelăm logica de respingere din serviciu
             medicService.respingeDonare(programareCurenta.getId());
 
-            // Afișăm confirmarea respingerii
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Donare Respinsă");
             alert.setHeaderText(null);
             alert.setContentText("Donatorul a fost declarat inapt pentru donare în această sesiune. Programarea a fost marcată ca respinsă.");
             alert.showAndWait();
 
-            // Navigăm înapoi la lista de programări (păstrând data selectată)
             handleBack();
 
         } catch (Exception e) {
@@ -114,9 +99,7 @@ public class MedicDetaliiDonatorController {
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
 
-            // Obținem controller-ul paginii de programări
             MedicProgramariController controller = loader.getController();
-            // Îi spunem să încarce exact data de unde am plecat
             controller.incarcaDataSpecifica(dataProvenienta);
 
             Stage stage = (Stage) btnBack.getScene().getWindow();

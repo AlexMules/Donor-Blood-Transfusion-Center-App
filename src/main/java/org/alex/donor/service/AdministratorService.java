@@ -19,40 +19,33 @@ public class AdministratorService {
     private final BiologRepository biologRepo;
     private final PasswordEncoder passwordEncoder;
 
-    /**
-     * Metoda apelată la apăsarea butonului "Adaugă" din interfața de Admin
-     */
+
     @Transactional
     public void creeazaContPersonalMedical(String email, String parola, String nrTelefon,
                                     String nume, String prenume, String codParafa, Rol rolSelectat) {
 
-        // 1. Validare email unic (Cerința ta: "daca exista deja email-ul, nu se poate adauga")
         if (utilizatorRepo.findByEmail(email).isPresent()) {
             throw new RuntimeException("Eroare: Email-ul " + email + " este deja înregistrat!");
         }
 
-        // 2. Creăm obiectul Utilizator (pentru tabela utilizatori)
         Utilizator user = new Utilizator();
         user.setEmail(email);
-        user.setParola(passwordEncoder.encode(parola)); // Criptăm parola
+        user.setParola(passwordEncoder.encode(parola));
         user.setNrTelefon(nrTelefon);
         user.setNume(nume);
         user.setPrenume(prenume);
         user.setRol(rolSelectat);
 
-        // SALVARE ÎN TABELA UTILIZATORI
-        // Spring returnează obiectul salvat care are acum și ID-ul generat automat de DB
         Utilizator userSalvat = utilizatorRepo.save(user);
 
-        // 3. Creăm profilul specific (pentru tabela medic sau biolog)
         if (rolSelectat == Rol.MEDIC) {
             Medic medic = new Medic();
-            medic.setUtilizator(userSalvat); // Aici se face automat legătura id_utilizator -> id
+            medic.setUtilizator(userSalvat);
             medic.setCodParafa(codParafa);
             medicRepo.save(medic);
         } else if (rolSelectat == Rol.BIOLOG) {
             Biolog biolog = new Biolog();
-            biolog.setUtilizator(userSalvat); // Legătura automată pentru id_utilizator
+            biolog.setUtilizator(userSalvat);
             biolog.setCodParafa(codParafa);
             biologRepo.save(biolog);
         }
@@ -72,25 +65,20 @@ public class AdministratorService {
 
     @Transactional
     public void actualizeazaDatePersonal(Integer id, String nouEmail, String nouaParola) {
-        // 1. Căutăm utilizatorul în baza de date
         Utilizator user = utilizatorRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Utilizatorul nu a fost găsit!"));
 
-        // 2. Actualizăm Email-ul dacă a fost completat și este diferit de cel actual
         if (nouEmail != null && !nouEmail.trim().isEmpty() && !nouEmail.equals(user.getEmail())) {
-            // Verificăm dacă noul email este deja ocupat de altcineva
             if (utilizatorRepo.findByEmail(nouEmail).isPresent()) {
                 throw new RuntimeException("Eroare: Email-ul " + nouEmail + " este deja utilizat de alt cont!");
             }
             user.setEmail(nouEmail);
         }
 
-        // 3. Actualizăm Parola dacă a fost completată (o criptăm înainte de salvare)
         if (nouaParola != null && !nouaParola.trim().isEmpty()) {
             user.setParola(passwordEncoder.encode(nouaParola));
         }
 
-        // 4. Salvăm modificările
         utilizatorRepo.save(user);
     }
 }

@@ -39,22 +39,18 @@ public class MedicService {
                 .orElseThrow(() -> new RuntimeException("Programarea nu a fost găsită!"));
     }
 
-    /**
-     * FLUX VALIDARE (Donatorul este apt)
-     */
+
     @Transactional
     public void valideazaDonare(Integer idProgramare) {
         Programare p = programareRepo.findById(idProgramare)
                 .orElseThrow(() -> new RuntimeException("Programarea nu a fost găsită!"));
 
-        // 1. Programarea devine FINALIZATA
         p.setStatus(StatusProgramare.FINALIZATA);
         programareRepo.save(p);
 
         Donator donatorManaged = donatorRepo.findById(p.getDonator().getId())
                 .orElseThrow(() -> new RuntimeException("Donatorul nu a fost găsit în baza de date!"));
 
-        // 2. Creăm o intrare în tabela 'donare'
         Donare donare = new Donare();
         donare.setDonator(donatorManaged);
         LocalDateTime dataSimulata = p.getDataOraProgramare().plusMinutes(15);
@@ -62,26 +58,21 @@ public class MedicService {
 
         Donare donareSalvata = donareRepo.save(donare);
 
-        // 3. Creăm o intrare în 'analiza_sange' (IN_ASTEPTARE)
         AnalizaSange analiza = new AnalizaSange();
         analiza.setDonare(donareSalvata);
         analiza.setRezultat(RezultatAnaliza.IN_ASTEPTARE);
         analizaRepo.save(analiza);
 
-        // 4. Donatorul devine INELIGIBIL_TEMPORAR
         donatorManaged.setStatus(StatusDonator.INELIGIBIL_TEMPORAR);
         donatorRepo.save(donatorManaged);
     }
 
-    /**
-     * FLUX INVALIDARE (Donatorul este respins de medic)
-     */
+
     @Transactional
     public void respingeDonare(Integer idProgramare) {
         Programare p = programareRepo.findById(idProgramare)
                 .orElseThrow(() -> new RuntimeException("Programarea nu a fost găsită!"));
 
-        // 1. Programarea devine RESPINSA
         p.setStatus(StatusProgramare.RESPINSA);
         programareRepo.save(p);
     }

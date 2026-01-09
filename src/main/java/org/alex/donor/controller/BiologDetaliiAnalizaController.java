@@ -40,17 +40,11 @@ public class BiologDetaliiAnalizaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Populăm ComboBox-urile cu valorile din Enums definite în model
         comboGrupa.setItems(FXCollections.observableArrayList(GrupaSanguina.values()));
         comboRh.setItems(FXCollections.observableArrayList(Rh.values()));
-
-        // Permitem doar ADMIS sau RESPINS pentru rezultat (fără IN_ASTEPTARE)
         comboRezultat.setItems(FXCollections.observableArrayList(RezultatAnaliza.ADMIS, RezultatAnaliza.RESPINS));
     }
 
-    /**
-     * Primește obiectul AnalizaSange din tabelul anterior pentru a-l popula în interfață.
-     */
     public void initData(AnalizaSange analiza) {
         this.analizaCurenta = analiza;
     }
@@ -58,14 +52,12 @@ public class BiologDetaliiAnalizaController implements Initializable {
     @FXML
     public void handleSalveaza() {
         try {
-            // 1. Preluăm datele selectate de biolog
             GrupaSanguina grupa = comboGrupa.getValue();
             Rh rh = comboRh.getValue();
             RezultatAnaliza rezultat = comboRezultat.getValue();
             String cantitateStr = txtCantitate.getText().trim();
             String mesaj = txtMesaj.getText();
 
-            // 2. Validare: toate câmpurile de selecție și cantitatea sunt obligatorii
             if (grupa == null || rh == null || rezultat == null || cantitateStr.isEmpty()) {
                 new Alert(Alert.AlertType.WARNING, "Vă rugăm să completați toate câmpurile obligatorii!").show();
                 return;
@@ -73,7 +65,6 @@ public class BiologDetaliiAnalizaController implements Initializable {
 
             Integer cantitate = Integer.parseInt(cantitateStr);
 
-            // 3. Apelăm serviciul care gestionează tranzacția (Analiza + Stoc + Status Donator)
             biologService.introducereRezultatAnaliza(
                     analizaCurenta.getId(),
                     cantitate,
@@ -83,7 +74,6 @@ public class BiologDetaliiAnalizaController implements Initializable {
                     mesaj
             );
 
-            // 4. Confirmare succes și întoarcere la listă
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Rezultatul a fost salvat cu succes!");
             alert.showAndWait();
             handleBack();

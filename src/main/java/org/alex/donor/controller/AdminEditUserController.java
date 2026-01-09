@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class AdminEditUserController {
 
-    private final AdministratorService administratorService; // Serviciul care deține logica de actualizare
+    private final AdministratorService administratorService;
     private final ApplicationContext springContext;
 
     @FXML private TextField numeField, prenumeField, rolField, emailActualField, emailNouField;
@@ -29,9 +29,6 @@ public class AdminEditUserController {
 
     private Utilizator utilizatorSelectat;
 
-    /**
-     * Metodă apelată din tabelul de gestionare pentru a trimite datele utilizatorului selectat.
-     */
     public void initData(Utilizator user) {
         this.utilizatorSelectat = user;
         numeField.setText(user.getNume());
@@ -46,7 +43,6 @@ public class AdminEditUserController {
         String nouEmail = emailNouField.getText().trim();
         String nouaParola = parolaNouaField.getText().trim();
 
-        // 1. Validări de bază
         if (nouEmail.isEmpty() && nouaParola.isEmpty()) {
             afiseazaAlerta(Alert.AlertType.WARNING, "Atenție", "Nicio modificare",
                     "Vă rugăm să introduceți un email nou sau o parolă nouă.");
@@ -60,18 +56,12 @@ public class AdminEditUserController {
         }
 
         try {
-            // 2. Apelăm serviciul pentru actualizare
             administratorService.actualizeazaDatePersonal(utilizatorSelectat.getId(), nouEmail, nouaParola);
-
-            // 3. Mesaj de SUCCES (Information)
             afiseazaAlerta(Alert.AlertType.INFORMATION, "Succes", "Actualizare Reușită",
                     "Datele utilizatorului " + utilizatorSelectat.getNume() + " au fost salvate.");
-
-            // 4. Revenim la tabel DOAR după ce utilizatorul apasă OK pe alertă
             handleBack();
 
         } catch (RuntimeException e) {
-            // 5. Mesaj de EROARE (Error)
             afiseazaAlerta(Alert.AlertType.ERROR, "Eroare Bază de Date", "Nu s-a putut efectua salvarea",
                     e.getMessage());
         }
@@ -82,14 +72,9 @@ public class AdminEditUserController {
         alerta.setTitle(titlu);
         alerta.setHeaderText(antet);
         alerta.setContentText(mesaj);
-
-        // showAndWait() oprește execuția codului până când utilizatorul închide fereastra
         alerta.showAndWait();
     }
 
-    /**
-     * Verifică formatul email-ului folosind o expresie regulată standard.
-     */
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pat = Pattern.compile(emailRegex);

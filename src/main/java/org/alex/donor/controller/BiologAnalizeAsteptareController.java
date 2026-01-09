@@ -43,12 +43,10 @@ public class BiologAnalizeAsteptareController implements Initializable {
     }
 
     private void configurareColoane() {
-        // Numerotare bazată pe ordinea din tabel, nu pe ID
         colNr.setCellValueFactory(column ->
                 new ReadOnlyObjectWrapper<>(tabelAnalize.getItems().indexOf(column.getValue()) + 1));
         colNr.setStyle("-fx-alignment: CENTER;");
 
-        // Accesăm datele prin relația Analiza -> Donare -> Donator -> Utilizator
         colNume.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().getDonare().getDonator().getUtilizator().getNume()));
 
@@ -82,26 +80,20 @@ public class BiologAnalizeAsteptareController implements Initializable {
     }
 
     private void incarcaAnalize() {
-        // Datele vin deja sortate crescător din serviciu
         tabelAnalize.setItems(FXCollections.observableArrayList(biologService.getAnalizeInAsteptare()));
         tabelAnalize.refresh();
     }
 
     private void handleIntroducereRezultat(AnalizaSange analiza) {
         try {
-            // 1. Încărcăm FXML-ul pentru detaliile analizei
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/biolog_detalii_analiza.fxml"));
 
-            // 2. Setăm factory-ul pentru Spring (foarte important pentru injectarea BiologService)
             loader.setControllerFactory(springContext::getBean);
-
             Parent root = loader.load();
 
-            // 3. Obținem controller-ul noii ferestre și îi transmitem datele analizei selectate
             BiologDetaliiAnalizaController controller = loader.getController();
             controller.initData(analiza);
 
-            // 4. Schimbăm scena pe Stage-ul curent
             Stage stage = (Stage) tabelAnalize.getScene().getWindow();
             stage.setScene(new Scene(root, 1000, 800));
             stage.setTitle("Introducere Rezultat Analiză");

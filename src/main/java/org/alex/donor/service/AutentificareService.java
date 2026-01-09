@@ -15,10 +15,7 @@ public class AutentificareService {
 
     private final UtilizatorRepository utilizatorRepo;
     private final PasswordEncoder passwordEncoder;
-    /**
-     * -- GETTER --
-     *  Getter pentru a verifica cine este logat în orice moment al aplicației
-     */
+
     @Getter
     private Utilizator utilizatorLogat;
 
@@ -36,16 +33,10 @@ public class AutentificareService {
         throw new RuntimeException("Email sau parolă incorectă!");
     }
 
-    /**
-     * Metoda de deautentificare
-     */
     public void logout() {
         this.utilizatorLogat = null;
     }
 
-    /**
-     * Verifică dacă există cineva logat
-     */
     public boolean isLogged() {
         return utilizatorLogat != null;
     }

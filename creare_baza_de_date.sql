@@ -1,7 +1,6 @@
 CREATE DATABASE IF NOT EXISTS donor_db;
 USE donor_db;
 
--- 1. Tabela pentru adrese
 CREATE TABLE adresa (
     id INT AUTO_INCREMENT PRIMARY KEY,
     judet VARCHAR(50) NOT NULL,
@@ -11,7 +10,6 @@ CREATE TABLE adresa (
     cod_postal VARCHAR(6)
 );
 
--- 2. Tabela principală pentru utilizatori
 CREATE TABLE utilizator (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -22,8 +20,6 @@ CREATE TABLE utilizator (
     rol ENUM('ADMIN', 'DONATOR', 'MEDIC', 'BIOLOG') NOT NULL
 );
 
--- 3. Tabela pentru donatori
--- Am schimbat '0' in 'ZERO', '+' in 'POZITIV' si '-' in 'NEGATIV'
 CREATE TABLE donator (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_utilizator INT NOT NULL UNIQUE,
@@ -41,14 +37,12 @@ CREATE TABLE donator (
     FOREIGN KEY (id_adresa) REFERENCES adresa(id) ON DELETE SET NULL
 );
 
--- 4. Tabela pentru administratori
 CREATE TABLE administrator (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_utilizator INT NOT NULL UNIQUE,
     FOREIGN KEY (id_utilizator) REFERENCES utilizator(id) ON DELETE CASCADE
 );
 
--- 5. Tabela pentru medici
 CREATE TABLE medic (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_utilizator INT NOT NULL UNIQUE,
@@ -56,7 +50,6 @@ CREATE TABLE medic (
     FOREIGN KEY (id_utilizator) REFERENCES utilizator(id) ON DELETE CASCADE
 );
 
--- 6. Tabela pentru biologi
 CREATE TABLE biolog (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_utilizator INT NOT NULL UNIQUE,
@@ -64,7 +57,6 @@ CREATE TABLE biolog (
     FOREIGN KEY (id_utilizator) REFERENCES utilizator(id) ON DELETE CASCADE
 );
 
--- 7. Tabela pentru programări
 CREATE TABLE programare (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_donator INT NOT NULL,
@@ -73,7 +65,6 @@ CREATE TABLE programare (
     FOREIGN KEY (id_donator) REFERENCES donator(id) ON DELETE CASCADE
 );
 
--- 8. Tabela pentru evidența donării
 CREATE TABLE donare (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_donator INT NOT NULL,
@@ -81,7 +72,6 @@ CREATE TABLE donare (
     FOREIGN KEY (id_donator) REFERENCES donator(id) ON DELETE CASCADE
 );
 
--- 9. Tabela pentru rezultatele analizelor
 CREATE TABLE analiza_sange (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_donare INT NOT NULL UNIQUE,
@@ -94,7 +84,6 @@ CREATE TABLE analiza_sange (
     FOREIGN KEY (id_donare) REFERENCES donare(id) ON DELETE CASCADE
 );
 
--- 10. Tabela pentru stocul de sânge
 CREATE TABLE stoc_sange (
     id INT AUTO_INCREMENT PRIMARY KEY,
     grupa_sanguina ENUM('A', 'B', 'AB', 'ZERO') NOT NULL,

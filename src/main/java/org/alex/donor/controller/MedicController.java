@@ -24,37 +24,31 @@ public class MedicController {
 
     @FXML
     public void handleViewAppointments() {
-        // Navigare către pagina de vizualizare programări
         loadScene("/fxml/medic_programari.fxml", "Vizualizare Programări");
     }
 
     @FXML
     public void handleViewStock() {
-        // Navigare către pagina de vizualizare stoc sânge
         loadScene("/fxml/medic_stoc.fxml", "Vizualizare Stoc Sânge");
     }
 
     @FXML
     public void handleSendAlert() {
-        // Navigare către pagina de trimitere alertă
         loadScene("/fxml/medic_trimitere_alerta.fxml", "Trimitere Alertă");
     }
 
     @FXML
     public void handleViewPersonalData() {
-        // Navigare către pagina de date personale
         loadScene("/fxml/personal_data.fxml", "Date Personale Medic");
     }
 
     @FXML
     public void handleViewFinalizedResults() {
-        // Reutilizăm pagina de rezultate finalizate creată pentru biolog
         loadScene("/fxml/biolog_rezultate_finalizate.fxml", "Rezultate Analize Finalizate");
     }
 
     @FXML
     public void handleLogout() {
-        // Realizează logout-ul prin serviciu conform cerinței
         autentificareService.logout();
         loadScene("/fxml/login.fxml", "Login");
     }
@@ -64,8 +58,6 @@ public class MedicController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
-
-            // Obținem Stage-ul curent folosind butonul de logout
             Stage stage = (Stage) btnLogout.getScene().getWindow();
 
             if (fxmlPath.contains("login")) {

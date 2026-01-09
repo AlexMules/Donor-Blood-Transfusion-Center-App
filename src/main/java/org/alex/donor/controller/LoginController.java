@@ -22,7 +22,7 @@ import java.io.IOException;
 public class LoginController {
 
     private final AutentificareService autentificareService;
-    private final ApplicationContext springContext; // Avem nevoie de el pentru a schimba scenele
+    private final ApplicationContext springContext;
 
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
@@ -33,24 +33,19 @@ public class LoginController {
         String email = emailField.getText().trim();
         String parola = passwordField.getText();
 
-        // 1. Validare: Câmpuri goale
         if (email.isEmpty() || parola.isEmpty()) {
             showError("Te rugăm să completezi toate câmpurile!");
             return;
         }
 
-        // 2. Validare: Format Email (ceva@ceva.com)
         if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             showError("Formatul email-ului este invalid!");
             return;
         }
 
         try {
-            // 3. Încercare autentificare prin Service
             autentificareService.login(email, parola);
             Utilizator user = autentificareService.getUtilizatorLogat();
-
-            // 4. Navigare în funcție de rol
             navigateToDashboard(user.getRol());
 
         } catch (Exception e) {
@@ -60,7 +55,6 @@ public class LoginController {
 
     @FXML
     public void handleRegister() {
-        // Metoda pentru butonul "Înregistrează-te"
         loadScene("/fxml/register_donator.fxml", "Înregistrare Donator");
     }
 
@@ -82,34 +76,24 @@ public class LoginController {
     private void loadScene(String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            // Injectăm contextul Spring pentru ca @Autowired să funcționeze în noile controllere
             loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
 
             Stage stage = (Stage) emailField.getScene().getWindow();
 
-            // Verificăm dacă mergem către Dashboard, Admin sau Înregistrare
             if (fxmlPath.contains("dashboard") || fxmlPath.contains("main") ||
                     fxmlPath.contains("register") || fxmlPath.contains("admin")) {
 
-                // Setează dimensiunea generoasă pentru meniuri și formulare complexe
                 stage.setScene(new Scene(root, 1000, 800));
-
-                // Setează limite minime pentru a preveni suprapunerea butoanelor mari
                 stage.setMinWidth(1000);
                 stage.setMinHeight(750);
-
-                // Permitem redimensionarea pentru a se adapta la diverse monitoare
                 stage.setResizable(true);
             } else {
-                // Dacă ne întoarcem la Login (ex: prin Logout)
                 stage.setScene(new Scene(root, 800, 500));
                 stage.setResizable(false); // Login-ul rămâne fix
             }
 
             stage.setTitle(title);
-
-            // FOARTE IMPORTANT: Recentrează fereastra după schimbarea dimensiunilor scenei
             stage.centerOnScreen();
 
         } catch (IOException e) {

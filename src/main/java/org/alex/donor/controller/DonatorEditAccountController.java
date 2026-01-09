@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class DonatorEditAccountController implements Initializable {
 
-    private final DonatorService donatorService; // Serviciul unde am mutat logica de actualizare
+    private final DonatorService donatorService;
     private final AutentificareService autentificareService;
     private final ApplicationContext springContext;
 
@@ -36,7 +36,6 @@ public class DonatorEditAccountController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // La deschiderea ferestrei, afișăm email-ul actual al donatorului
         Utilizator userLogat = autentificareService.getUtilizatorLogat();
         if (userLogat != null) {
             emailCurentField.setText(userLogat.getEmail());
@@ -49,21 +48,18 @@ public class DonatorEditAccountController implements Initializable {
         String emailNou = emailNouField.getText().trim();
         String parolaNoua = parolaNouaField.getText().trim();
 
-        // 1. Verificăm dacă parola actuală a fost introdusă (este obligatorie pentru securitate)
         if (parolaActuala.isEmpty()) {
             afiseazaAlerta(Alert.AlertType.WARNING, "Atenție", "Câmp obligatoriu",
                     "Trebuie să introduceți parola actuală pentru a confirma modificările.");
             return;
         }
 
-        // 2. Verificăm dacă există cel puțin o modificare de făcut
         if (emailNou.isEmpty() && parolaNoua.isEmpty()) {
             afiseazaAlerta(Alert.AlertType.WARNING, "Atenție", "Nicio modificare",
                     "Introduceți un email nou sau o parolă nouă.");
             return;
         }
 
-        // 3. Validare format Email Nou (dacă a fost completat)
         if (!emailNou.isEmpty() && !isValidEmail(emailNou)) {
             afiseazaAlerta(Alert.AlertType.ERROR, "Eroare Validare", "Format Email Invalid",
                     "Vă rugăm să introduceți o adresă de email validă.");
@@ -71,7 +67,6 @@ public class DonatorEditAccountController implements Initializable {
         }
 
         try {
-            // 4. Apelăm metoda din DonatorService care verifică parola și face update-ul
             donatorService.actualizeazaContDonator(
                     autentificareService.getUtilizatorLogat().getId(),
                     parolaActuala,
@@ -79,13 +74,11 @@ public class DonatorEditAccountController implements Initializable {
                     parolaNoua
             );
 
-            // 5. Mesaj de succes și întoarcere la meniul principal
             afiseazaAlerta(Alert.AlertType.INFORMATION, "Succes", "Date Actualizate",
                     "Contul dumneavoastră a fost modificat cu succes.");
             handleBack();
 
         } catch (RuntimeException e) {
-            // Prindem erorile (ex: parolă actuală greșită sau email duplicat) și le afișăm
             afiseazaAlerta(Alert.AlertType.ERROR, "Eroare la Salvare", "Operațiune eșuată", e.getMessage());
         }
     }

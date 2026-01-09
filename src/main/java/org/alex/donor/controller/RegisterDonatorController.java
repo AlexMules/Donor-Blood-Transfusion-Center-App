@@ -49,9 +49,8 @@ public class RegisterDonatorController implements Initializable {
     @FXML
     public void handleRegister() {
         try {
-            validateFields(); // Execută toate restricțiile cerute
+            validateFields();
 
-            // 1. Construim obiectul Utilizator
             Utilizator u = new Utilizator();
             u.setEmail(emailField.getText().trim());
             u.setParola(passwordField.getText());
@@ -59,7 +58,6 @@ public class RegisterDonatorController implements Initializable {
             u.setPrenume(prenumeField.getText().trim());
             u.setNrTelefon(phoneField.getText().trim());
 
-            // 2. Construim obiectul Adresa
             Adresa a = new Adresa();
             a.setJudet(judetField.getText().trim());
             a.setLocalitate(localitateField.getText().trim());
@@ -67,7 +65,6 @@ public class RegisterDonatorController implements Initializable {
             a.setNumar(Integer.parseInt(numarField.getText().trim()));
             a.setCodPostal(codPostalField.getText().trim());
 
-            // 3. Construim obiectul Donator
             Donator d = new Donator();
             d.setCnp(cnpField.getText().trim());
             d.setSex(mapSex(sexCombo.getValue()));
@@ -75,18 +72,14 @@ public class RegisterDonatorController implements Initializable {
             String inaltime = inaltimeField.getText().trim().replace(",", ".");
             d.setInaltime(Float.valueOf(inaltime));
 
-            // Conversie Data: adăugăm automat ora 00:00:00
             LocalDate date = LocalDate.parse(dataNasteriiField.getText());
             d.setDataNasterii(LocalDateTime.of(date, LocalTime.MIDNIGHT));
 
-            // Conversie Enums pentru Sânge (presupunând denumirile standard din modelele tale)
             d.setGrupaSanguina(mapGrupa(grupaCombo.getValue()));
             d.setRh(mapRh(rhCombo.getValue()));
 
-            // 4. Apelăm DonatorService pentru salvare (include criptarea parolei și salvarea în lanț)
             donatorService.inregistrareDonator(u, a, d);
 
-            // Succes! Mergem înapoi la login
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Cont creat cu succes!");
             alert.showAndWait();
             handleBack();
@@ -99,16 +92,13 @@ public class RegisterDonatorController implements Initializable {
     private void validateFields() throws Exception {
         if (isAnyEmpty()) throw new Exception("Toate câmpurile sunt obligatorii!");
 
-        // Validări Regex de bază
         if (!emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) throw new Exception("Email invalid!");
         if (!phoneField.getText().matches("\\d{10}")) throw new Exception("Telefonul trebuie să aibă 10 cifre!");
 
-        // Greutatea: Doar cifre (număr întreg)
         if (!greutateField.getText().trim().matches("\\d+")) {
             throw new Exception("Greutatea trebuie să fie un număr întreg!");
         }
 
-        // Înălțimea: Permitem cifre și opțional un punct/virgulă pentru zecimale
         if (!inaltimeField.getText().trim().replace(",", ".").matches("\\d+(\\.\\d+)?")) {
             throw new Exception("Înălțimea trebuie să fie un număr (ex: 1.75 sau 175)!");
         }
@@ -116,7 +106,6 @@ public class RegisterDonatorController implements Initializable {
         if (!cnpField.getText().matches("\\d{13}")) throw new Exception("CNP-ul trebuie să aibă 13 cifre!");
         if (!codPostalField.getText().matches("\\d{6}")) throw new Exception("Codul poștal trebuie să aibă 6 cifre!");
 
-        // Validare format dată (AAAA-LL-ZZ)
         try { LocalDate.parse(dataNasteriiField.getText()); }
         catch (Exception e) { throw new Exception("Data nașterii invalidă! Folosiți formatul AAAA-LL-ZZ."); }
     }

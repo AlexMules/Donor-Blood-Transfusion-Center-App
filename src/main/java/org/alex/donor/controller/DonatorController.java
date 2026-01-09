@@ -5,10 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert; // ADĂUGAT
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.FileChooser; // ADĂUGAT
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import org.alex.donor.model.Donator;
@@ -19,10 +19,10 @@ import org.alex.donor.service.DonatorService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.io.File; // ADĂUGAT
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files; // ADĂUGAT
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 
 @Component
@@ -51,28 +51,26 @@ public class DonatorController implements Initializable {
         statusLabel.setText(textStatus);
 
         if (status == StatusDonator.ELIGIBIL) {
-            statusLabel.setStyle("-fx-text-fill: #00FF00;"); // Verde
+            statusLabel.setStyle("-fx-text-fill: #00FF00;"); // verde
         } else {
-            statusLabel.setStyle("-fx-text-fill: #FFD700;"); // Galben
+            statusLabel.setStyle("-fx-text-fill: #FFD700;"); // galben
         }
     }
 
     /**
-     * Gestionează descărcarea certificatului de donator în format PDF.
+     * gestionează descarcarea certificatului de donator în format PDF
      */
     @FXML
     public void handleDownloadCertificat() {
         Utilizator u = autentificareService.getUtilizatorLogat();
         Donator d = donatorService.getDonatorByUtilizator(u);
 
-        // 1. Verificare Eligibilitate (doar ELIGIBIL poate descărca)
         if (d.getStatus() != StatusDonator.ELIGIBIL) {
             afiseazaAlerta(Alert.AlertType.WARNING, "Acces Refuzat", "Ineligibil",
                     "Certificatul este disponibil doar pentru donatorii eligibili.");
             return;
         }
 
-        // 2. Configurare dialog salvare fișier
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Salvează Certificat Donator");
         fileChooser.setInitialFileName("Certificat_" + u.getNume() + "_" + u.getPrenume() + ".pdf");
@@ -82,12 +80,8 @@ public class DonatorController implements Initializable {
 
         if (file != null) {
             try {
-                // 3. Generare PDF prin serviciu
                 byte[] pdfBytes = donatorService.genereazaCertificatComplet(d);
-
-                // 4. Salvare fișier pe disk
                 Files.write(file.toPath(), pdfBytes);
-
                 afiseazaAlerta(Alert.AlertType.INFORMATION, "Succes", "Fișier Salvat",
                         "Certificatul a fost generat cu succes!");
             } catch (Exception e) {
@@ -97,22 +91,35 @@ public class DonatorController implements Initializable {
         }
     }
 
-    // --- METODE NAVIGARE EXISTENTE ---
+    @FXML public void handleAlerte() {
+        loadScene("/fxml/donator_alerte.fxml", "Alerte Stoc Sânge");
+    }
 
-    @FXML public void handleAlerte() { loadScene("/fxml/donator_alerte.fxml", "Alerte Stoc Sânge"); }
-    @FXML public void handleProgramare() { loadScene("/fxml/donator_programare.fxml", "Programare Donare"); }
-    @FXML public void handleIstoric() { loadScene("/fxml/donator_rezultate_analize.fxml", "Rezultate Analize"); }
-    @FXML public void handleViewPersonalData() { loadScene("/fxml/personal_data.fxml", "Date Personale"); }
-    @FXML public void handleEditAccount() { loadScene("/fxml/donator_edit_account.fxml", "Modificare Date Cont"); }
-    @FXML public void handleGhid() { loadScene("/fxml/ghid_donator.fxml", "Ghidul Donatorului"); }
+    @FXML public void handleProgramare() {
+        loadScene("/fxml/donator_programare.fxml", "Programare Donare");
+    }
+
+    @FXML public void handleIstoric() {
+        loadScene("/fxml/donator_rezultate_analize.fxml", "Rezultate Analize");
+    }
+
+    @FXML public void handleViewPersonalData() {
+        loadScene("/fxml/personal_data.fxml", "Date Personale");
+    }
+
+    @FXML public void handleEditAccount() {
+        loadScene("/fxml/donator_edit_account.fxml", "Modificare Date Cont");
+    }
+
+    @FXML public void handleGhid() {
+        loadScene("/fxml/ghid_donator.fxml", "Ghidul Donatorului");
+    }
 
     @FXML
     public void handleLogout() {
         autentificareService.logout();
         loadScene("/fxml/login.fxml", "Login");
     }
-
-    // --- METODE UTALITARE ---
 
     private void afiseazaAlerta(Alert.AlertType tip, String t, String h, String c) {
         Alert alert = new Alert(tip);

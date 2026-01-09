@@ -51,12 +51,10 @@ public class ProgramareController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Obținem profilul donatorului logat
         donatorLogat = donatorService.getDonatorByUtilizator(autentificareService.getUtilizatorLogat());
 
         configurareRestrictiiCalendar();
 
-        // Listener pentru actualizarea orelor disponibile când se schimbă ziua
         datePickerZiua.valueProperty().addListener((obs, vechi, nou) -> {
             if (nou != null) {
                 actualizeazaOreDisponibile(nou);
@@ -67,22 +65,17 @@ public class ProgramareController implements Initializable {
     }
 
     private void actualizeazaStareInterfata() {
-        // 1. Verificăm Eligibilitatea generală (Donatorul trebuie să fie ELIGIBIL)
         if (donatorLogat.getStatus() != StatusDonator.ELIGIBIL) {
-            // Transformăm Enum-ul în String și înlocuim "_" cu spațiu pentru utilizator
             String statusFormatat = donatorLogat.getStatus().toString().replace("_", " ");
-
-            // Trimitem mesajul curățat către metoda de dezactivare
             dezactiveazaPanouProgramare("Nu te poți programa deoarece statusul tău actual este: " + statusFormatat);
             return;
         }
 
-        // 2. Căutăm dacă există deja o programare CONFIRMATA în viitor
         Optional<Programare> activaOpt = programareService.getProgramareActiva(donatorLogat);
 
         if (activaOpt.isPresent()) {
             programareActivaCurenta = activaOpt.get();
-            // Există programare: Blocăm formularul (stânga), activăm detaliile (dreapta)
+
             boxGreen.setDisable(true);
             boxGreen.setOpacity(0.5);
             boxPurple.setDisable(false);
@@ -92,7 +85,6 @@ public class ProgramareController implements Initializable {
             lblInfoZiua.setText("Ziua: " + programareActivaCurenta.getDataOraProgramare().toLocalDate().format(dtf));
             lblInfoOra.setText("Ora: " + programareActivaCurenta.getDataOraProgramare().toLocalTime().toString());
         } else {
-            // Nu are programare: Activăm formularul, blocăm vizualizarea programării inexistente
             boxGreen.setDisable(false);
             boxGreen.setOpacity(1.0);
             boxPurple.setDisable(true);
@@ -105,10 +97,8 @@ public class ProgramareController implements Initializable {
     }
 
     private void actualizeazaOreDisponibile(LocalDate data) {
-        // Definim intervalele orare fixe solicitate (8:00 - 12:00)
         List<String> toateOrele = List.of("08:00", "09:00", "10:00", "11:00", "12:00");
 
-        // Filtrăm doar orele care NU sunt ocupate în baza de date
         List<String> disponibile = toateOrele.stream()
                 .filter(ora -> {
                     LocalDateTime ldt = LocalDateTime.of(data, LocalTime.parse(ora));
@@ -144,7 +134,6 @@ public class ProgramareController implements Initializable {
         if (programareActivaCurenta == null) return;
 
         try {
-            // Anulare programare (verifică regula de 24h în serviciu)
             programareService.anuleazaProgramare(programareActivaCurenta.getId());
             new Alert(Alert.AlertType.INFORMATION, "Programarea a fost anulată.").show();
             actualizeazaStareInterfata();
@@ -162,7 +151,6 @@ public class ProgramareController implements Initializable {
     }
 
     private void configurareRestrictiiCalendar() {
-        // Prevenim selectarea zilelor din trecut și a weekend-urilor
         datePickerZiua.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate item, boolean empty) {
@@ -171,7 +159,7 @@ public class ProgramareController implements Initializable {
                         item.getDayOfWeek() == DayOfWeek.SATURDAY ||
                         item.getDayOfWeek() == DayOfWeek.SUNDAY) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #ffcccc;"); // Indicativ vizual pentru zile indisponibile
+                    setStyle("-fx-background-color: #ffcccc;");
                 }
             }
         });
