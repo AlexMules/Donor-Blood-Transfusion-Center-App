@@ -49,6 +49,11 @@
                 <Button onAction="#handleProgramare" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Programează-te" />
                 <Button onAction="#handleIstoric" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Vizualizare rezultate analize" />
                 <Button onAction="#handleViewPersonalData" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Vizualizare date personale" />
+                <Button onAction="#handleDownloadCertificat"
+                        prefHeight="65.0"
+                        prefWidth="400.0"
+                        styleClass="admin-menu-button"
+                        text="Descarcă Certificat Donator" />
                 <Button onAction="#handleEditAccount" prefHeight="65.0" prefWidth="400.0" styleClass="admin-menu-button" text="Modificare date cont" />
             </children>
         </VBox>
