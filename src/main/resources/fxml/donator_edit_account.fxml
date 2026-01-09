@@ -26,12 +26,12 @@
                 </VBox>
 
                 <VBox spacing="5.0">
-                    <Label text="Email Nou (opțional):" styleClass="info-label" />
+                    <Label text="Email Nou:" styleClass="info-label" />
                     <TextField fx:id="emailNouField" prefHeight="55.0" styleClass="input-field" promptText="Nu scrie nimic dacă nu dorești modificarea" />
                 </VBox>
 
                 <VBox spacing="5.0">
-                    <Label text="Parolă Nouă (opțional):" styleClass="info-label" />
+                    <Label text="Parolă Nouă:" styleClass="info-label" />
                     <PasswordField fx:id="parolaNouaField" prefHeight="55.0" styleClass="input-field" promptText="Nu scrie nimic dacă nu dorești modificarea" />
                 </VBox>
 
