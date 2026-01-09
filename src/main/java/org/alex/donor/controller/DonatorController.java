@@ -80,6 +80,11 @@ public class DonatorController implements Initializable {
     }
 
     @FXML
+    public void handleEditAccount() {
+        loadScene("/fxml/donator_edit_account.fxml", "Modificare Date Cont");
+    }
+
+    @FXML
     public void handleLogout() {
         autentificareService.logout();
         loadScene("/fxml/login.fxml", "Login");

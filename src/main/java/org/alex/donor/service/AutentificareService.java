@@ -22,11 +22,6 @@ public class AutentificareService {
     @Getter
     private Utilizator utilizatorLogat;
 
-    /**
-     * Metoda de autentificare
-     * @return Utilizatorul logat (cu tot cu Rol)
-     * @throws RuntimeException dacă datele sunt incorecte
-     */
     public Utilizator login(String email, String parola) {
         Optional<Utilizator> optUser = utilizatorRepo.findByEmail(email);
 
@@ -53,5 +48,9 @@ public class AutentificareService {
      */
     public boolean isLogged() {
         return utilizatorLogat != null;
+    }
+
+    public void refreshSesiune(Utilizator utilizatorActualizat) {
+        this.utilizatorLogat = utilizatorActualizat;
     }
 }

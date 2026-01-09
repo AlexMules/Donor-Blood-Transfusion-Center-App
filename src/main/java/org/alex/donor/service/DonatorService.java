@@ -104,4 +104,34 @@ public class DonatorService {
                 donator.getRh()
         );
     }
+
+    /**
+     * Actualizează datele de acces ale donatorului după verificarea parolei actuale.
+     */
+    @Transactional
+    public void actualizeazaContDonator(Integer id, String parolaActuala, String nouEmail, String nouaParola) {
+        Utilizator user = utilizatorRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilizatorul nu a fost găsit!"));
+
+        if (!passwordEncoder.matches(parolaActuala, user.getParola())) {
+            throw new RuntimeException("Parola actuală introdusă este incorectă!");
+        }
+
+        if (nouEmail != null && !nouEmail.trim().isEmpty() && !nouEmail.equals(user.getEmail())) {
+            if (utilizatorRepo.findByEmail(nouEmail).isPresent()) {
+                throw new RuntimeException("Eroare: Email-ul " + nouEmail + " este deja utilizat!");
+            }
+            user.setEmail(nouEmail);
+        }
+
+        if (nouaParola != null && !nouaParola.trim().isEmpty()) {
+            user.setParola(passwordEncoder.encode(nouaParola));
+        }
+
+        // 1. Salvăm în baza de date
+        Utilizator userSalvat = utilizatorRepo.save(user);
+
+        // 2. ACTUALIZĂM SESIUNEA (Sincronizăm RAM cu DB)
+        autentificareService.refreshSesiune(userSalvat);
+    }
 }
