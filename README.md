@@ -27,11 +27,39 @@ keeping everything organized and efficient throughout the entire donation proces
 
 <br><br>
 
-### 📂 Project Structure
+## 📂 Project Structure
+```text
+Donor-Blood-Transfusion-Center-App/
+├── .mvn/                
+├── src/
+│   ├── main/
+│   │   ├── java/org/alex/donor/
+|   |   |   ├── config/
+│   │   │   ├── controller/      
+│   │   │   ├── model/           
+│   │   │   ├── repository/      
+│   │   │   ├── scheduler/
+|   |   |   ├── service/      
+│   │   └── resources/
+│   │       ├── css/           
+│   │       ├── fxml/
+|   |       ├── images/           
+│   │       └── application.properties
+|   ├── test/java/org/alex/donor/
+├── .gitattributes            
+├── .gitignore
+├── Donor_Certificate.pdf
+├── README.md
+├── cod_baza_de_date.sql
+├── donor_app.log
+├── mvnw
+├── mvnw.cmd
+└── pom.xml
+```
 
 <br><br>
 
-## Screenshots
+## 🖼️ Screenshots
 ### 1. Login Window
 <div align="center">
   <img width="700" height="612" alt="image" src="https://github.com/user-attachments/assets/84f9c1c1-0e7d-4994-a0cd-5f214d061e23" />
