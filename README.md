@@ -60,7 +60,15 @@ keeping everything organized and efficient throughout the entire donation proces
 ### 5. Donor dashboard
 <div align="center">
   <img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/f4b17ae2-2acf-4616-a0e8-7580aadae925" /><br><br>
+  <img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/c0a4a888-9342-41a2-8287-bdf208e77256" /><br><br>
+  <img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/5f4c08b0-1b01-4ad4-adc9-339f6beeab8c" />
+<br><br>
+  <img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/8adedb74-84b5-4247-9dae-42029b179d2f" />
+<br><br>
   
+<br><br>
+  <br><br>
+  <br><br>
 </div>
 
 
