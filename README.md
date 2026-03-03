@@ -26,6 +26,11 @@ keeping everything organized and efficient throughout the entire donation proces
 | Version Control | Git |
 
 <br><br>
+
+### 📂 Project Structure
+
+<br><br>
+
 ## Screenshots
 ### 1. Login Window
 <div align="center">
@@ -65,10 +70,14 @@ keeping everything organized and efficient throughout the entire donation proces
 <br><br>
   <img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/8adedb74-84b5-4247-9dae-42029b179d2f" />
 <br><br>
-  
+  <img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/9cc5ceaf-5e17-4784-846e-8684e600259d" />
 <br><br>
-  <br><br>
-  <br><br>
+  <img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/5190de76-6ca7-4093-a549-2b69f047c4fd" />
+<br><br>
+  <img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/ee587fb1-d161-4429-8580-6d322e674fc2" />
+<br><br>
+  ⚠️ WARNING !! The data presented in this document is fictitious and does not represent real personal data !! <br><br>
+  <img width="612" height="683" alt="image" src="https://github.com/user-attachments/assets/caae4c7d-48c7-4e69-b5cf-7c85eb328c37" />
 </div>
 
 
