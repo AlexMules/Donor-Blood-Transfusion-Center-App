@@ -1,0 +1,36 @@
+2026-03-03T10:01:06.259+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.s.boot.SpringApplication               : Starting application using Java 23 with PID 452 (started by Alex1 in D:\Alex\UTCN\An 3\Semestrul 1\Inginerie_software\Proiect\donor)
+2026-03-03T10:01:06.270+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.s.boot.SpringApplication               : No active profile set, falling back to 1 default profile: "default"
+2026-03-03T10:01:06.849+02:00  INFO 452 --- [donor] [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-03T10:01:06.958+02:00  INFO 452 --- [donor] [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102 ms. Found 11 JPA repository interfaces.
+2026-03-03T10:01:07.357+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-03T10:01:07.433+02:00  INFO 452 --- [donor] [JavaFX-Launcher] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.4.Final
+2026-03-03T10:01:07.471+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-03T10:01:07.793+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-03T10:01:07.829+02:00  INFO 452 --- [donor] [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-03T10:01:08.358+02:00  INFO 452 --- [donor] [JavaFX-Launcher] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@39ee01e
+2026-03-03T10:01:08.361+02:00  INFO 452 --- [donor] [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-03T10:01:08.474+02:00  INFO 452 --- [donor] [JavaFX-Launcher] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.39
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-03T10:01:09.546+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-03T10:01:09.733+02:00  INFO 452 --- [donor] [JavaFX-Launcher] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-03T10:01:10.234+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-03T10:01:11.115+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.s.boot.SpringApplication               : Started application in 5.283 seconds (process running for 11.555)
+2026-03-03T10:01:11.132+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.a.donor.scheduler.ProgramareScheduler  : Sistemul verifică programările expirate la pornire...
+2026-03-03T10:01:11.208+02:00  INFO 452 --- [donor] [JavaFX-Launcher] o.a.donor.scheduler.ProgramareScheduler  : Nu au fost găsite programări expirate de anulat.
+2026-03-03T10:01:11.345+02:00  WARN 452 --- [donor] [JavaFX Application Thread] javafx                                   : Loading FXML document with JavaFX API of version 25 by JavaFX runtime of version 21.0.5
+2026-03-03T10:31:22.727+02:00  WARN 452 --- [donor] [JavaFX Application Thread] javafx                                   : Loading FXML document with JavaFX API of version 25 by JavaFX runtime of version 21.0.5
+2026-03-03T10:33:32.046+02:00  WARN 452 --- [donor] [JavaFX Application Thread] javafx                                   : Loading FXML document with JavaFX API of version 25 by JavaFX runtime of version 21.0.5
+2026-03-03T10:33:53.370+02:00  WARN 452 --- [donor] [JavaFX Application Thread] javafx                                   : Loading FXML document with JavaFX API of version 25 by JavaFX runtime of version 21.0.5
+2026-03-03T10:41:06.358+02:00  WARN 452 --- [donor] [JavaFX Application Thread] javafx                                   : Loading FXML document with JavaFX API of version 25 by JavaFX runtime of version 21.0.5
+2026-03-03T10:47:06.589+02:00  WARN 452 --- [donor] [JavaFX Application Thread] javafx                                   : Loading FXML document with JavaFX API of version 25 by JavaFX runtime of version 21.0.5
+2026-03-03T10:56:38.564+02:00  WARN 452 --- [donor] [JavaFX Application Thread] javafx                                   : Loading FXML document with JavaFX API of version 25 by JavaFX runtime of version 21.0.5
+2026-03-03T10:57:44.808+02:00  WARN 452 --- [donor] [JavaFX Application Thread] javafx                                   : Loading FXML document with JavaFX API of version 25 by JavaFX runtime of version 21.0.5
+2026-03-03T11:05:04.304+02:00  INFO 452 --- [donor] [JavaFX Application Thread] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-03T11:05:04.313+02:00  INFO 452 --- [donor] [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-03T11:05:04.319+02:00  INFO 452 --- [donor] [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
