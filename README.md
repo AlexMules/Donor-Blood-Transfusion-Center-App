@@ -62,7 +62,7 @@ Donor-Blood-Transfusion-Center-App/
 ## 🖼️ Screenshots
 ### 1. Login Window
 <div align="center">
-  <img width="700" height="612" alt="image" src="https://github.com/user-attachments/assets/84f9c1c1-0e7d-4994-a0cd-5f214d061e23" />
+  <img alt="image" src="https://github.com/user-attachments/assets/84f9c1c1-0e7d-4994-a0cd-5f214d061e23" />
 </div><br><br>
 
 ### 2. Admin dashboard
